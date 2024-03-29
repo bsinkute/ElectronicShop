@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\AdminServise\" />
+    <Folder Include="Services\UserServise\" />
+  </ItemGroup>
+
 </Project>
