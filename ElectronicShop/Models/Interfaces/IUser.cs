@@ -6,6 +6,5 @@ namespace ElectronicShop.Models.Interfaces
     {
         public string UserNickName { get; set; }
         public string UserPassword { get; set; }
-
     }
 }

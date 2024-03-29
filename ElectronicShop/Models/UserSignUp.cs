@@ -1,8 +1,7 @@
 ﻿
 namespace ElectronicShop.Models
 {
-    internal class UserSingUp
+    internal class UserSignUp
     {
-
     }
 }
