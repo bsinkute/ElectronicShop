@@ -1,6 +1,4 @@
-﻿using ElectronicShop.Models;
-using ElectronicShop.Models.Interfaces;
-
+﻿
 namespace ElectronicShop
 {
     internal class Program
