@@ -11,5 +11,16 @@ namespace ElectronicShop.Infrastructure
             var serializedData = JsonSerializer.Serialize(data);
             File.WriteAllText(FileName, serializedData);
         }
+
+        public T ReadJson()
+        {
+            bool fileExist = File.Exists(FileName);
+            if (!fileExist)
+            {
+                return default;
+            }
+            string fileContent = File.ReadAllText(FileName);
+            return JsonSerializer.Deserialize<T>(fileContent);
+        }
     }
 }

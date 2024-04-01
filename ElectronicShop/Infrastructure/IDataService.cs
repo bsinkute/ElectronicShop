@@ -4,5 +4,6 @@
     {
         public string FileName { get; set; }
         void WriteJson(T data);
+        T ReadJson();
     }
 }
