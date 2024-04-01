@@ -1,4 +1,6 @@
-﻿namespace ElectronicShop.Infrastructure
+﻿using System.Text.Json;
+
+namespace ElectronicShop.Infrastructure
 {
     public class DataService<T> : IDataService<T>
     {
@@ -6,7 +8,8 @@
 
         public void WriteJson(T data)
         {
-            File.WriteAllText(FileName, "laba diena");
+            var serializedData = JsonSerializer.Serialize(data);
+            File.WriteAllText(FileName, serializedData);
         }
     }
 }
