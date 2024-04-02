@@ -1,5 +1,4 @@
-﻿
-namespace ElectronicShop
+﻿namespace ElectronicShop
 {
     internal class Program
     {

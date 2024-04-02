@@ -1,5 +1,4 @@
-﻿
-namespace ElectronicShop.Models
+﻿namespace ElectronicShop.Models
 {
     internal class AdminLogIn
     {

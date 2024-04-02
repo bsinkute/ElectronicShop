@@ -6,7 +6,7 @@ namespace ElectronicShop.Models
     {
         //1. SignUp User 2. LogIn User 3. Login Admin 4. Exit
 
-        void ILoadShop.LoadShop(out int loadSelect)// sioje vietoje (out int loadSelect) kur daryti SWITCH
+        public void Load(out int loadSelect)// sioje vietoje (out int loadSelect) kur daryti SWITCH
         {
             while (true)
             {

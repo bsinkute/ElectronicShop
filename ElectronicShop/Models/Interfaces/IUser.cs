@@ -1,5 +1,4 @@
-﻿
-namespace ElectronicShop.Models.Interfaces
+﻿namespace ElectronicShop.Models.Interfaces
 {
     public interface IUser
     {
