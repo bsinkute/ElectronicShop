@@ -78,5 +78,31 @@ namespace ElectronicShop
                 }
             }
         }
+
+        public void RegisterUser(List<User> users)
+        {
+            // user input
+            Console.WriteLine("Enter your username:");
+            string userName = Console.ReadLine();
+            Console.WriteLine("Enter your password:");
+            string password = Console.ReadLine();
+            Console.WriteLine("Enter your email address:");
+
+            do
+            {
+                _emailAddress = Console.ReadLine();
+            } while (!IsValidEmail(_emailAddress));
+
+            // Create user object
+            User newUser = new User { UserName = userName, Password = password, EmailAddress = _emailAddress };
+
+            // Add user to list
+            users.Add(newUser);
+
+            // Save users to file
+            SaveUsers(users);
+
+            Console.WriteLine("User registered successfully.");
+        }
     }
 }
