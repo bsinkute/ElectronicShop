@@ -42,5 +42,41 @@ namespace ElectronicShop
                 Console.WriteLine("Insufficient funds in the wallet.");
             }
         }
+
+        public void Login(List<User> users)
+        {
+            // login
+            Console.WriteLine("Enter your username:");
+            string userName = Console.ReadLine();
+            Console.WriteLine("Enter your password:");
+            string password = Console.ReadLine();
+
+            // admin
+            if (userName == "Admin1" && password == "menuliukas123")
+            {
+                Console.WriteLine("Admin login successful.");
+
+                return;
+            }
+
+            // Find user in the list
+            User user = users.Find(u => u.UserName == userName && u.Password == password);
+
+            if (user != null)
+            {
+                Console.WriteLine("Login successful.");
+                Console.WriteLine($"Welcome, {user.UserName}!");
+
+                // Check if the user is an admin
+                if (user.IsAdmin)
+                {
+                    Console.WriteLine("You are an admin.");
+                }
+                else
+                {
+                    Console.WriteLine("You are not an admin.");
+                }
+            }
+        }
     }
 }
