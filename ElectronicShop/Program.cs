@@ -1,4 +1,5 @@
-﻿namespace ElectronicShop
+using ElectronicShop.Models;
+namespace ElectronicShop
 {
     internal class Program
     {
@@ -10,6 +11,14 @@
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Hello, World!");
+            UserWindow userWindow = new UserWindow();
+            UserWindowSelection selection = new UserWindowSelection();
+            userWindow.LoadUserWindow(out int userWindowSelection);
+            selection.Selecter(userWindowSelection);
+            UserSettingsWindow userSettingsWindow = new UserSettingsWindow();
+            UserSettingsSelecter userSettingsSelecter = new UserSettingsSelecter();
+            userSettingsWindow.LoadUserSettingsWindow(out int userSettingsSelection);
+            userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);
         }
     }
 }
