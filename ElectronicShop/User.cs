@@ -104,5 +104,16 @@ namespace ElectronicShop
 
             Console.WriteLine("User registered successfully.");
         }
+
+        public void SaveUsers(List<User> users)
+        {
+            using (StreamWriter writer = new StreamWriter(_filePath))
+            {
+                foreach (User user in users)
+                {
+                    writer.WriteLine($"{user.UserName},{user.Password},{user.EmailAddress},{user.Wallet}");
+                }
+            }
+        }
     }
 }
