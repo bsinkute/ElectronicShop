@@ -1,4 +1,5 @@
-﻿using ElectronicShop.Models;
+using ElectronicShop.Models;
+
 namespace ElectronicShop
 {
     internal class Program
@@ -15,6 +16,10 @@ namespace ElectronicShop
             UserWindowSelection selection = new UserWindowSelection();
             userWindow.LoadUserWindow(out int userWindowSelection);
             selection.Selecter(userWindowSelection);
+            UserSettingsWindow userSettingsWindow = new UserSettingsWindow();
+            UserSettingsSelecter userSettingsSelecter = new UserSettingsSelecter();
+            userSettingsWindow.LoadUserSettingsWindow(out int userSettingsSelection);
+            userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);
         }
     }
 }
