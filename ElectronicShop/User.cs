@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ElectronicShop
@@ -137,6 +138,14 @@ namespace ElectronicShop
                 }
             }
             return users;
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            //regex pattern check
+            string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+
+            return Regex.IsMatch(email, pattern);
         }
     }
 }
