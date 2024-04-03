@@ -115,5 +115,28 @@ namespace ElectronicShop
                 }
             }
         }
+
+        public List<User> LoadUsers()
+        {
+            List<User> users = new List<User>();
+
+            if (File.Exists(_filePath))
+            {
+                string[] lines = File.ReadAllLines(_filePath);
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    User user = new User
+                    {
+                        UserName = parts[0],
+                        Password = parts[1],
+                        EmailAddress = parts[2],
+                        Wallet = decimal.Parse(parts[3]) // Load wallet balance
+                    };
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
     }
 }
