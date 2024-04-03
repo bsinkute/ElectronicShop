@@ -1,21 +1,20 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectronicShop
+namespace ElectronicShop.Models
 {
     public class AddViewBalance
     {
         private DataService<Customer> _customerDataService;
 
-        public  AddViewBalance(string fileName)
+        public AddViewBalance(string fileName)
         {
-             _customerDataService = new DataService<Customer> { FileName = fileName };
-         
+            _customerDataService = new DataService<Customer> { FileName = fileName };
+
         }
 
         public void SaveCustomer(Customer customer)
