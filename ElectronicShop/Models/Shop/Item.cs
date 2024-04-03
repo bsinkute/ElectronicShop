@@ -10,7 +10,7 @@
 
         public override string ToString()
         {
-            return $"Id: {Id:000}, {Name}, {Description},\r\nPrice: {Price:N}€, Qty:{Quantity}";
+            return $"Id: {Id:000}, {Name}, {Description},\r\nPrice: {Price:N}€, Qty: {Quantity}";
         }
     }
 }
