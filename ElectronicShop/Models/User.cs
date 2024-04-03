@@ -5,39 +5,25 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ElectronicShop
+namespace ElectronicShop.Models
 {
     public class User
     {
-        public string UserName { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
-        public decimal Wallet { get; set; }
+        public decimal Wallet { get; private set; }
         public bool IsAdmin { get; set; }
         private string _filePath = @"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
-        private string _emailAddress;
 
-        public string FilePath()
-        {
-            return _filePath;
-        }
 
-        public string Email()
-        {
-            return _emailAddress;
-        }
+        public string FilePath() { return _filePath; }
 
-        public void AddToWallet(decimal amount)
-        {
-            Wallet += amount;
-        }
+        public void AddToWallet(decimal amount) { Wallet += amount; }
 
         public void DeductFromWallet(decimal amount)
         {
-            if (Wallet >= amount)
-            {
-                Wallet -= amount;
-            }
+            if (Wallet >= amount) { Wallet -= amount; }
             else
             {
                 Console.WriteLine("Insufficient funds in the wallet.");
@@ -61,12 +47,12 @@ namespace ElectronicShop
             }
 
             // Find user in the list
-            User user = users.Find(u => u.UserName == userName && u.Password == password);
+            User user = users.Find(u => u.Username == userName && u.Password == password);
 
             if (user != null)
             {
                 Console.WriteLine("Login successful.");
-                Console.WriteLine($"Welcome, {user.UserName}!");
+                Console.WriteLine($"Welcome, {user.Username}!");
 
                 // Check if the user is an admin
                 if (user.IsAdmin)
@@ -91,11 +77,11 @@ namespace ElectronicShop
 
             do
             {
-                _emailAddress = Console.ReadLine();
-            } while (!IsValidEmail(_emailAddress));
+                EmailAddress = Console.ReadLine();
+            } while (!IsValidEmail(EmailAddress));
 
             // Create user object
-            User newUser = new User { UserName = userName, Password = password, EmailAddress = _emailAddress };
+            User newUser = new User { Username = userName, Password = password, EmailAddress = EmailAddress };
 
             // Add user to list
             users.Add(newUser);
@@ -112,7 +98,7 @@ namespace ElectronicShop
             {
                 foreach (User user in users)
                 {
-                    writer.WriteLine($"{user.UserName},{user.Password},{user.EmailAddress},{user.Wallet}");
+                    writer.WriteLine($"{user.Username},{user.Password},{user.EmailAddress},{user.Wallet}");
                 }
             }
         }
@@ -129,7 +115,7 @@ namespace ElectronicShop
                     string[] parts = line.Split(',');
                     User user = new User
                     {
-                        UserName = parts[0],
+                        Username = parts[0],
                         Password = parts[1],
                         EmailAddress = parts[2],
                         Wallet = decimal.Parse(parts[3]) // Load wallet balance
