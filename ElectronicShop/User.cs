@@ -15,5 +15,15 @@ namespace ElectronicShop
         public bool IsAdmin { get; set; }
         private string _filePath = @"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
         private string _emailAddress;
+
+        public string FilePath()
+        {
+            return _filePath;
+        }
+
+        public string Email()
+        {
+            return _emailAddress;
+        }
     }
 }
