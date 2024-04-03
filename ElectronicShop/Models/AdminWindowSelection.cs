@@ -5,6 +5,13 @@ namespace ElectronicShop.Models
 {
     internal class AdminWindowSelection
     {
+        private readonly IDataService<Inventory> _inventoryDataService;
+
+        public AdminWindowSelection(IDataService<Inventory> inventoryDataService)
+        {
+            _inventoryDataService = inventoryDataService;
+        }
+
         public void Selector(int selectionFromAdminWindow)
         {
             switch (selectionFromAdminWindow)
@@ -40,8 +47,7 @@ namespace ElectronicShop.Models
 
         private void AddNewItem()
         {
-            DataService<Inventory> dataService = new DataService<Inventory> { FileName = "Inventory.json" };
-            var inventory = dataService.ReadJson() ?? new Inventory();
+            var inventory = _inventoryDataService.ReadJson() ?? new Inventory();
 
             Console.Write("Enter Item Name: ");
             var name = Console.ReadLine();
@@ -78,7 +84,7 @@ namespace ElectronicShop.Models
             }
 
             inventory.AddItem(name, description, price, quantity);
-            dataService.WriteJson(inventory);
+            _inventoryDataService.WriteJson(inventory);
         }
     }
 }
