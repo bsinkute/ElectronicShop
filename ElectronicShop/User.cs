@@ -25,5 +25,22 @@ namespace ElectronicShop
         {
             return _emailAddress;
         }
+
+        public void AddToWallet(decimal amount)
+        {
+            Wallet += amount;
+        }
+
+        public void DeductFromWallet(decimal amount)
+        {
+            if (Wallet >= amount)
+            {
+                Wallet -= amount;
+            }
+            else
+            {
+                Console.WriteLine("Insufficient funds in the wallet.");
+            }
+        }
     }
 }
