@@ -9,7 +9,7 @@ namespace ElectronicShop.Models
 {
     public class NewUser : User
     {
-        public List<User> Users { get; set; } = [];
+        public List<User> Users { get; set; } = new List<User>();
 
         public override string ToString()
         {
@@ -18,7 +18,7 @@ namespace ElectronicShop.Models
 
         public void SaveUser(string username, string password, string emailAddress)
         {
-            int userID = Username.Any() ? Username.Max(item => item + 1) : 1;
+            int userID = Users.Any() ? Users.Max(item => item.UserID) +1 : 1;
             var newUser = new User
             { 
                 UserID = userID,

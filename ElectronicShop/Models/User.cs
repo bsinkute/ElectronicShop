@@ -88,27 +88,16 @@ namespace ElectronicShop.Models
             Console.WriteLine("User registered successfully.");
         }
 
-        public void SaveUsers(List<User> users)
-        {
-            using (StreamWriter writer = new StreamWriter(_filePath))
-            {
-                foreach (User user in users)
-                {
-                    writer.WriteLine($"{user.Username},{user.Password},{user.EmailAddress},{user.Wallet}");
-                }
-            }
-        }
-        public void SaveUsersEXAMPLE2(string name, string password, string email)
-        {
-            
-        }
-        public void SaveUsersEXAMPLE()
-        {
-            DataService<User> dataServiceUser = new DataService<User> { FileName = "Users.json" };
-            var user = dataServiceUser.ReadJson() ?? new User();
-
-
-        }
+        //public void SaveUsers(List<User> users)
+        //{
+        //    using (StreamWriter writer = new StreamWriter(_filePath))
+        //    {
+        //        foreach (User user in users)
+        //        {
+        //            writer.WriteLine($"{user.Username},{user.Password},{user.EmailAddress},{user.Wallet}");
+        //        }
+        //    }
+        //}
 
         public List<User> LoadUsers()
         {
