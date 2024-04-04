@@ -10,7 +10,6 @@ namespace ElectronicShop.Models
 {
     public class User
     {
-        DataService<User> DataService { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
@@ -19,7 +18,10 @@ namespace ElectronicShop.Models
         public bool IsAdmin { get; set; }
         private string _filePath = @"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
 
-
+        public override string ToString()
+        {
+            return $"{UserID:000}. {Username}\nEmail: {EmailAddress}\nPassword: {Password}\n";
+        }
         public string FilePath() { return _filePath; }
 
         public void AddToWallet(decimal amount) { Wallet += amount; }
@@ -96,7 +98,10 @@ namespace ElectronicShop.Models
                 }
             }
         }
-
+        public void SaveUsersEXAMPLE2(string name, string password, string email)
+        {
+            
+        }
         public void SaveUsersEXAMPLE()
         {
             DataService<User> dataServiceUser = new DataService<User> { FileName = "Users.json" };
