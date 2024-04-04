@@ -5,6 +5,13 @@ namespace ElectronicShop.Models
 {
     internal class AdminWindowSelection
     {
+        private readonly IDataService<Inventory> _inventoryDataService;
+
+        public AdminWindowSelection(IDataService<Inventory> inventoryDataService)
+        {
+            _inventoryDataService = inventoryDataService;
+        }
+
         public void Selector(int selectionFromAdminWindow)
         {
             switch (selectionFromAdminWindow)
@@ -40,8 +47,7 @@ namespace ElectronicShop.Models
 
         private void AddNewItem()
         {
-            DataService<Inventory> dataService = new DataService<Inventory> { FileName = "Inventory.json" };
-            var inventory = dataService.ReadJson() ?? new Inventory();
+            var inventory = _inventoryDataService.ReadJson() ?? new Inventory();
 
             Console.Write("Enter Item Name: ");
             var name = Console.ReadLine();
@@ -78,15 +84,15 @@ namespace ElectronicShop.Models
             }
 
             inventory.AddItem(name, description, price, quantity);
-            dataService.WriteJson(inventory);
+            _inventoryDataService.WriteJson(inventory);
 
             Console.WriteLine("Item added successfully.");
         }
 
         private void EditItem()
         {
-            DataService<Inventory> dataService = new DataService<Inventory> { FileName = "Inventory.json" };
-            var inventory = dataService.ReadJson() ?? new Inventory();
+
+            var inventory = _inventoryDataService.ReadJson() ?? new Inventory();
 
             Console.WriteLine("Enter the ID of the item you want to edit:");
             if (!int.TryParse(Console.ReadLine(), out int itemId))
@@ -124,12 +130,9 @@ namespace ElectronicShop.Models
             if (!string.IsNullOrWhiteSpace(newQuantityInput) && int.TryParse(newQuantityInput, out int newQuantity) && newQuantity > 0)
                 itemToEdit.Quantity = newQuantity;
 
-            dataService.WriteJson(inventory);
+            _inventoryDataService.WriteJson(inventory);
 
             Console.WriteLine("Item updated successfully.");
-
         }
-
-        
     }
 }
