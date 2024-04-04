@@ -7,10 +7,12 @@ namespace ElectronicShop.Models
     internal class AdminWindowSelection
     {
         private readonly IDataService<Inventory> _inventoryDataService;
+        private readonly IDataService<User> _userDataService;
 
-        public AdminWindowSelection(IDataService<Inventory> inventoryDataService)
+        public AdminWindowSelection(IDataService<Inventory> inventoryDataService, IDataService<User> userDataService)
         {
             _inventoryDataService = inventoryDataService;
+            _userDataService = userDataService;
         }
 
         public void Selector(int selectionFromAdminWindow)
@@ -150,7 +152,7 @@ namespace ElectronicShop.Models
 
                 string jsonContent = File.ReadAllText(filePath);
 
-                var users = _inventoryDataService.ReadJson() ?? new User();
+                var users = _userDataService.ReadJson() ?? new User();
 
                 if (users == null || users.Length == 0)
                 {
