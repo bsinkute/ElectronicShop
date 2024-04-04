@@ -16,12 +16,8 @@ namespace ElectronicShop.Models
         public int UserID { get; set; }
         public decimal Wallet { get; private set; }
         public bool IsAdmin { get; set; }
-        private string _filePath = @"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
+        private string _filePath = "Users.json";   //@"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
 
-        public override string ToString()
-        {
-            return $"{UserID:000}. {Username}\nEmail: {EmailAddress}\nPassword: {Password}\n";
-        }
         public string FilePath() { return _filePath; }
 
         public void AddToWallet(decimal amount) { Wallet += amount; }

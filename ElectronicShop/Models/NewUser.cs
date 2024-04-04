@@ -9,11 +9,11 @@ namespace ElectronicShop.Models
 {
     public class NewUser : User
     {
-        public List<User> Users { get; set; } = new List<User>();
+        public List<User> Users { get; set; } = [];
 
         public override string ToString()
         {
-            return $"{UserID:000}. {Username}\nEmail: {EmailAddress}\nPassword: {Password}\n";
+            return $"{UserID:000}. {Username}\nEmail: {EmailAddress}\nPassword: {Password}";
         }
 
         public void SaveUser(string username, string password, string emailAddress)
