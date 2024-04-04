@@ -1,5 +1,4 @@
 using ElectronicShop.Models;
-
 namespace ElectronicShop
 {
     internal class Program
