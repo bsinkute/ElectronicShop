@@ -4,6 +4,6 @@ namespace ElectronicShop.Models.Interfaces
 {
     public interface ICart
     {
-        List<Item> UserCart { get; set; }
+        List<Cart> UserCart { get; set; }
     }
 }
