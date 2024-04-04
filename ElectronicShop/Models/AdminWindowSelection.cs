@@ -1,4 +1,5 @@
 ﻿using ElectronicShop.Infrastructure;
+using ElectronicShop.Models.Interfaces;
 using ElectronicShop.Models.Shop;
 
 namespace ElectronicShop.Models
@@ -26,7 +27,7 @@ namespace ElectronicShop.Models
                     break;
                 case 3:
                     Console.Clear();
-                    Console.WriteLine("User Review--- Method");
+                    UserReview();
                     break;
                 case 4:
                     Console.Clear();
@@ -133,6 +134,40 @@ namespace ElectronicShop.Models
             _inventoryDataService.WriteJson(inventory);
 
             Console.WriteLine("Item updated successfully.");
+        }
+
+        private void UserReview()
+        {
+            string filePath = "users.json";
+
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("users.json file does not exist.");
+                    return;
+                }
+
+                string jsonContent = File.ReadAllText(filePath);
+
+                var users = _inventoryDataService.ReadJson() ?? new User();
+
+                if (users == null || users.Length == 0)
+                {
+                    Console.WriteLine("No users found in JSON.");
+                    return;
+                }
+
+                Console.WriteLine("Users:");
+                foreach (var user in users)
+                {
+                    Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Email: {user.Email}, Password: {user.Password}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }
