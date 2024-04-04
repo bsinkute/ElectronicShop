@@ -19,15 +19,14 @@ namespace ElectronicShop.Models
         public void SaveUser(string username, string password, string emailAddress)
         {
             int userID = Username.Any() ? Username.Max(item => item + 1) : 1;
-            User newUser = new User
-            {
+            var newUser = new User
+            { 
                 UserID = userID,
                 Username = username,
                 Password = password,
                 EmailAddress = emailAddress
-        };
+            };
             Users.Add(newUser);
         }
-
     }
 }
