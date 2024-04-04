@@ -11,14 +11,26 @@ namespace ElectronicShop
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Hello, World!");
-            UserWindow userWindow = new UserWindow();
+            AdminWindow adminWindow = new AdminWindow();
+            AdminWindowSelection adminWindowSelection = new AdminWindowSelection();
+
+            int adminSettingsSelection;
+            adminWindow.LoadAdminSettingsWindow(out adminSettingsSelection);
+
+            adminWindowSelection.Selector(adminSettingsSelection);
+
+            Console.ReadLine();
+
+
+            /*UserWindow userWindow = new UserWindow();
             UserWindowSelection selection = new UserWindowSelection();
             userWindow.LoadUserWindow(out int userWindowSelection);
             selection.Selecter(userWindowSelection);
             UserSettingsWindow userSettingsWindow = new UserSettingsWindow();
             UserSettingsSelecter userSettingsSelecter = new UserSettingsSelecter();
             userSettingsWindow.LoadUserSettingsWindow(out int userSettingsSelection);
-            userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);
+            userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);*/
         }
+        
     }
 }
