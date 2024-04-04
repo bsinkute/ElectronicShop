@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElectronicShop.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,11 @@ namespace ElectronicShop.Models
 {
     public class User
     {
+        DataService<User> DataService { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
+        public int UserID { get; set; }
         public decimal Wallet { get; private set; }
         public bool IsAdmin { get; set; }
         private string _filePath = @"C:\Users\User\OneDrive\Desktop\.NET\ElectronicStore_Project\Models\users.txt";
@@ -24,10 +27,7 @@ namespace ElectronicShop.Models
         public void DeductFromWallet(decimal amount)
         {
             if (Wallet >= amount) { Wallet -= amount; }
-            else
-            {
-                Console.WriteLine("Insufficient funds in the wallet.");
-            }
+            else { Console.WriteLine("Insufficient funds in the wallet.");}
         }
 
         public void Login(List<User> users)
@@ -41,9 +41,7 @@ namespace ElectronicShop.Models
             // admin
             if (userName == "Admin1" && password == "menuliukas123")
             {
-                Console.WriteLine("Admin login successful.");
-
-                return;
+                Console.WriteLine("Admin login successful."); return;
             }
 
             // Find user in the list
@@ -68,7 +66,6 @@ namespace ElectronicShop.Models
 
         public void RegisterUser(List<User> users)
         {
-            // user input
             Console.WriteLine("Enter your username:");
             string userName = Console.ReadLine();
             Console.WriteLine("Enter your password:");
@@ -80,14 +77,11 @@ namespace ElectronicShop.Models
                 EmailAddress = Console.ReadLine();
             } while (!IsValidEmail(EmailAddress));
 
-            // Create user object
-            User newUser = new User { Username = userName, Password = password, EmailAddress = EmailAddress };
+            User newUser = new User { Username = userName, Password = password, EmailAddress = EmailAddress }; // Create user object
 
-            // Add user to list
-            users.Add(newUser);
-
-            // Save users to file
-            SaveUsers(users);
+            users.Add(newUser); // Add user to list
+            
+            SaveUsers(users); // Save users to file
 
             Console.WriteLine("User registered successfully.");
         }
@@ -101,6 +95,14 @@ namespace ElectronicShop.Models
                     writer.WriteLine($"{user.Username},{user.Password},{user.EmailAddress},{user.Wallet}");
                 }
             }
+        }
+
+        public void SaveUsersEXAMPLE()
+        {
+            DataService<User> dataServiceUser = new DataService<User> { FileName = "Users.json" };
+            var user = dataServiceUser.ReadJson() ?? new User();
+
+
         }
 
         public List<User> LoadUsers()
@@ -126,11 +128,9 @@ namespace ElectronicShop.Models
             return users;
         }
 
-        public bool IsValidEmail(string email)
-        {
-            //regex pattern check
-            string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
-
+        public static bool IsValidEmail(string email)
+        { 
+            string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"; //regex pattern check
             return Regex.IsMatch(email, pattern);
         }
     }
