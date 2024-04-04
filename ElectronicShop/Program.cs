@@ -12,6 +12,7 @@ namespace ElectronicShop
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Hello, World!");
+            NewUser newUser = new NewUser();
             UserWindow userWindow = new UserWindow();
             UserWindowSelection selection = new UserWindowSelection();
             userWindow.LoadUserWindow(out int userWindowSelection);
@@ -20,6 +21,7 @@ namespace ElectronicShop
             UserSettingsSelecter userSettingsSelecter = new UserSettingsSelecter();
             userSettingsWindow.LoadUserSettingsWindow(out int userSettingsSelection);
             userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);
+           
         }
     }
 }

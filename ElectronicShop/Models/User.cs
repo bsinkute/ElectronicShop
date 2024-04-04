@@ -69,22 +69,20 @@ namespace ElectronicShop.Models
         public void RegisterUser(List<User> users)
         {
             Console.WriteLine("Enter your username:");
-            string userName = Console.ReadLine();
+            string username = Console.ReadLine();
             Console.WriteLine("Enter your password:");
             string password = Console.ReadLine();
             Console.WriteLine("Enter your email address:");
 
-            do
-            {
-                EmailAddress = Console.ReadLine();
-            } while (!IsValidEmail(EmailAddress));
-
-            User newUser = new User { Username = userName, Password = password, EmailAddress = EmailAddress }; // Create user object
-
+            NewUser newUser = new NewUser { Username = username, Password = password, EmailAddress = EmailAddress }; // Create user object
+            
             users.Add(newUser); // Add user to list
             
-            SaveUsers(users); // Save users to file
-
+            newUser.SaveUser(Username, Password, EmailAddress); // Save users to file
+            do
+            {
+                newUser.EmailAddress = Console.ReadLine();
+            } while (!IsValidEmail(newUser.EmailAddress));
             Console.WriteLine("User registered successfully.");
         }
 
