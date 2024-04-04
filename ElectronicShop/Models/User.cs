@@ -1,4 +1,6 @@
 ﻿using ElectronicShop.Infrastructure;
+using ElectronicShop.Models.Interfaces;
+using ElectronicShop.Models.Shop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,15 @@ using System.Threading.Tasks;
 
 namespace ElectronicShop.Models
 {
-    public class User
+    public class User : IUser
     {
+        private readonly IDataService<NewUser> _newUserDataService;
+
+        public User(IDataService<NewUser> newUserDataService)
+        {
+            _newUserDataService = newUserDataService;
+        }
+
         public string Username { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
@@ -70,7 +79,7 @@ namespace ElectronicShop.Models
             string password = Console.ReadLine();
             Console.WriteLine("Enter your email address:");
 
-            NewUser newUser = new NewUser { Username = username, Password = password, EmailAddress = EmailAddress }; // Create user object
+            NewUser newUser = new NewUser { Username = username, Password = password, EmailAddress = emailAddress }; // Create user object
             
             users.Add(newUser); // Add user to list
             

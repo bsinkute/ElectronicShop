@@ -2,7 +2,9 @@
 {
     public interface IUser
     {
-        public string UserNickName { get; set; }
-        public string UserPassword { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string EmailAddress { get; set; }
+        public int UserID { get; set; }
     }
 }
