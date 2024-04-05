@@ -20,7 +20,7 @@ namespace ElectronicShop.Models
             {
                 Console.Clear();
                 Console.WriteLine("Items in Your Cart:");
-                var catrItems = _cartDataService.ReadJson() ?? new Cart();
+                var catrItems = _cartDataService.ReadJson() ?? new Cart();//Čia nuskaitomas krepšelis bendras visai programai, tačiau krepšelis turėtų būti individualus kiekvienam klientui. Tam reikėtų panaudoti User klasę, nors ji kol kas dar neegzistuoja.
                 foreach (var cart in catrItems.CartItems)
                 {
                     Console.WriteLine($"Item Nr.: {cart.InCartItemID}, {cart.InCartItemName},Description: {cart.InCartItemDescription}, Price: {cart.InCartItemPrice}€".ToString());
@@ -30,7 +30,7 @@ namespace ElectronicShop.Models
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(TotalPrice+ "€");
                 Console.ResetColor();
-                Console.WriteLine("1. Payment \r\n2. Go To User Windowt");
+                Console.WriteLine("1. Payment \r\n2. Go To User Window");
                 bool isCorectSelection = int.TryParse(Console.ReadLine(), out int selectionFromUserCart);
                 if (!isCorectSelection || selectionFromUserCart < 1 || selectionFromUserCart > 2)
                 {
