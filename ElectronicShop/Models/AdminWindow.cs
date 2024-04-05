@@ -9,6 +9,7 @@
                 Console.Clear();
                 Console.WriteLine("Admin Window:");
                 Console.WriteLine("1. Add New Item \r\n2. Edit Item \r\n3. User Review \r\n4. Delete User \r\n5. Log Out");
+                Console.Write("Enter number from 1 to 5: ");
                 bool isCorectSelection = int.TryParse(Console.ReadLine(), out adminSettingsSelection);
                 if (!isCorectSelection || adminSettingsSelection < 1 || adminSettingsSelection > 5)
                 {
