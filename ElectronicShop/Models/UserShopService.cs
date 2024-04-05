@@ -1,39 +1,23 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
 using ElectronicShop.Models.Shop;
-using System.Collections.Generic;
-
 namespace ElectronicShop.Models
 {
-    internal class UserShopService//: ICart
+    internal class UserShopService
     {
-        //public List<Cart> UserCart { get; set; }
-
         private readonly IDataService<Inventory> _inventoryDataService;
         public UserShopService(IDataService<Inventory> inventoryDataService) 
         {
             _inventoryDataService = inventoryDataService;
         }
-        /*private readonly IDataService<Cart> _cartDataService;
-        public UserShopService(IDataService<Cart> cartDataService) 
+        public IDataService<Cart> writeData = new DataService<Cart> { FileName = "Users Cart Items.json" };
+        public void UserShoping()
         {
-            _cartDataService = cartDataService;
-        }*/
-
-
-
-        //public List<Item> ShopItems { get; set; } = new List<Item>();
-        
-
-        public void UserShoping()//out int shopSelection
-        {
+            var itemAddToCart = new Cart();
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Go Shoping");
                 Console.WriteLine("Insert Item Nr.to Add to Your Cart \nQ. Go Back");
-                /*DataService<List<Item>> readJson = new DataService<List<Item>> { FileName = "Inventory.json" };
-                ShopItems = readJson.ReadJson();*/
                 var shopItems = _inventoryDataService.ReadJson() ?? new Inventory();
                 if(shopItems == null) { Console.WriteLine("ERROR: SHOP ITEMS RETURNED AS NULL"); break; }
                 foreach (var item in shopItems.Items)
@@ -55,18 +39,13 @@ namespace ElectronicShop.Models
                 }
                 else if (shopSelection == "q")
                 {
+                    writeData.WriteJson(itemAddToCart);
                     break;
                 }
-
-                //<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>
-                
                 else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))//>>> isMatch && greiciausia teks trinti
                 {
                     Item selectedItem = shopItems.Items.First(item => item.Id == Convert.ToInt32(shopSelection));
-                    
-                    var itemAddToCart = new Cart();
-                    itemAddToCart.AddToUserCart(selectedItem);
-                    //_cartDataService.WriteJson(itemAddToCart.UserCart);
+                    itemAddToCart.AddToUserCart(selectedItem) ;
                     Console.WriteLine("Item Added to Your Cart");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
@@ -74,13 +53,6 @@ namespace ElectronicShop.Models
                     Console.ReadLine();
                     continue;
                 }
-
-
-
-
-
-
-
                 else if (shopItems.Items.Any(item => item.Id != Convert.ToInt32(shopSelection)))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -93,15 +65,5 @@ namespace ElectronicShop.Models
                 }
             }
         }
-        /*public void WriteCatrDataToJson() 
-        {
-            
-            //_cartDataService.WriteJson();
-
-            
-        }*/
-
-        
-
     }
 }
