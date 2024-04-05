@@ -22,12 +22,13 @@ namespace ElectronicShop
             userSettingsWindow.LoadUserSettingsWindow(out int userSettingsSelection);
             userSettingsSelecter.UserSettingsWindowSelecter(userSettingsSelection);*/
             IDataService<Inventory> readDataService = new DataService<Inventory> { FileName = "Inventory.json" };
-            UserShop userShop1 = new UserShop(readDataService);
+            UserShopService userShop1 = new UserShopService(readDataService);
             userShop1.UserShoping();
+            /*
             IDataService<Cart> writeDataService = new DataService<Cart> { FileName = "Users Cart Items.json" };
-            UserShop userShop2 = new UserShop(writeDataService);
-            userShop2.WriteCatrDataToJson();
-            //userShop.WriteCatrDataToJson();
+            UserShopService userShop2 = new UserShopService(writeDataService);
+            userShop2.WriteCatrDataToJson();*/
+
         }
     }
 }

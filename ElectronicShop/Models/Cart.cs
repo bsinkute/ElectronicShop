@@ -1,17 +1,25 @@
-﻿using ElectronicShop.Models.Shop;
+﻿using ElectronicShop.Infrastructure;
+using ElectronicShop.Models.Shop;
 using System;
 namespace ElectronicShop.Models
 {
     public class Cart
     {
-        public int UserID { get; set; } = 33;
+        public int UserID { get; set; } = 3;
         public int InCartItemID { get; set; }
         public string InCartItemName { get; set; }
         public string InCartItemDescription { get; set; }   
         public decimal InCartItemPrice { get; set; }
         public int InCartItemQuantity { get; set; }
+        public List<Cart> Carts { get; set; } = [];
+
+        public IDataService<Cart> writeData = new DataService<Cart> { FileName = "Users Cart Items.json" };
+        /*public Cart(IDataService<Cart> cartDataService)
+        {
+        _cartDataService = cartDataService;
+        }*/
         
-        public List<Cart> UserCart { get; set; } = new List<Cart>(); 
+        
         public void AddToUserCart(Item item)
         {
             Cart cartItem = new Cart
@@ -23,8 +31,21 @@ namespace ElectronicShop.Models
                 InCartItemPrice = item.Price,
                 InCartItemQuantity = item.Quantity,
             };
-            UserCart.Add(cartItem);
+            Carts.Add(cartItem);
+            
+            
+            writeData.WriteJson(cartItem);                    
+            
+
         }
-        
+
+        /*public void WriteCatrDataToJson()
+        {
+            
+            //_cartDataService.WriteJson(UserCart); //{ FileName = "Users Cart Items.json" };
+
+            
+        }*/
+
     }
 }
