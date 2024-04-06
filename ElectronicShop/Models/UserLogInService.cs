@@ -18,16 +18,35 @@ namespace ElectronicShop.Models
                 var encryptedPassword = encodePsw.EncryptPassword();
                 IUserService userService = new UserService();
                 var user = userService.GetUser(nickName, encryptedPassword);
-                CurentUserID = user.UserID;
-                if (user.Username == nickName && user.Password == encryptedPassword)
+                if (user==null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Your NickName or Password don't match according registration files");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Press ENTER");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.Clear();
+                    continue;
+                }
+                else if (user.Username == nickName && user.Password == encryptedPassword)
+                {
+                    CurentUserID = user.UserID;
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"You loged as {nickName} successfully");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Press ENTER");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.Clear();
                     UserWindowService userWindow = new UserWindowService();
                     userWindow.LoadUserWindow();
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Your NickName or Password don't match according registration files");
+                    Console.WriteLine("Error at UserLogInService.Login");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();

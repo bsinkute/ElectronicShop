@@ -20,11 +20,10 @@ namespace ElectronicShop.Models
                     Console.ReadLine();
                     continue;
                 }
-                else if (isCorectSelection && userWindowSelection >= 1 && userWindowSelection <= 3)
+                else if (isCorectSelection && userWindowSelection >= 1 && userWindowSelection <= 4)
                 {
                     UserWindowSelector(userWindowSelection);
                 }
-                else if(isCorectSelection && userWindowSelection >= 4) break;
                 else Console.WriteLine("Error at LoadUserWindow");
             }
         }
@@ -53,7 +52,8 @@ namespace ElectronicShop.Models
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.Clear();
-                    Console.WriteLine("Shop Load--- Method");
+                    ILoadShop loadShop = new LoadShopService();
+                    loadShop.Load();
                     break;
                 default:
                     Console.WriteLine("Error at UserWindowSelector");
