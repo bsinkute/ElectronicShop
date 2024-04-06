@@ -2,7 +2,7 @@
 
 namespace ElectronicShop.Models
 {
-    internal class LoadShopService : ILoadShop
+    public class LoadShopService : ILoadShop
     {
         //1. SignUp User 2. LogIn User 3. Login Admin 4. Exit
 
