@@ -60,7 +60,7 @@ namespace ElectronicShop.Models
                     break;
                 case 2: 
                     UserWindowService userWindow = new UserWindowService();
-                    userWindow.LoadUserWindow(out int non);
+                    userWindow.LoadUserWindow();
                     break;
                 default: 
                     Console.WriteLine("ERROR from UserCartReviewService.ReviewSelect");
