@@ -1,7 +1,7 @@
 ﻿namespace ElectronicShop.Models.Interfaces
 {
-    public interface ILoadShop
+    internal interface IUserSignUp
     {
-        void Load();
+        void SignUp();
     }
 }
