@@ -12,11 +12,11 @@ namespace ElectronicShop.Models
             user.AddUser(username,password);
             _userDataService.WriteJson(user);
         }
-        public string GetUser(string username, string password)
+        public User GetUser(string username, string password)
         {
             var userData = _userDataService.ReadJson() ?? new UsersData();
             var user = userData.Users.Find(u => u.Username == username && u.Password == password);
-            return user.ToString();
+            return user;
         }
 
     }
