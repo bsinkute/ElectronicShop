@@ -13,7 +13,7 @@ namespace ElectronicShop.Models
         private string _key = "SecondPrpjectOnLineShopDreamTeam";
         public string PswText { get; }
 
-        public string EncryptString()
+        public string EncryptPassword()
         {
             byte[] iv = new byte[16];
             byte[] array;
@@ -40,7 +40,7 @@ namespace ElectronicShop.Models
             }
             return Convert.ToBase64String(array);
         }
-        public string DecryptString(string encpsw)
+        public string DecryptPassword(string encpsw)
         {
             byte[] iv = new byte[16];
             byte[] buffer = Convert.FromBase64String(encpsw);

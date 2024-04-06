@@ -17,7 +17,7 @@ namespace ElectronicShop.Models
                     Console.WriteLine("Please enter numbers from 1 to 4");
                     continue;
                 }
-                else if (isLoadCorect || loadSelect >= 1 && loadSelect <= 3)
+                else if (isLoadCorect && loadSelect >= 1 && loadSelect <= 3)
                 {
                     LoadShopSelector(loadSelect);
                 }

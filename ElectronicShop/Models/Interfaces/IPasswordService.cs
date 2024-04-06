@@ -4,7 +4,7 @@ namespace ElectronicShop.Models.Interfaces
 {
     public interface IPasswordService
     {
-        string EncryptString();
-        string DecryptString(string encpasw);
+        string EncryptPassword();
+        string DecryptPassword(string encryptedPassword);
     }
 }

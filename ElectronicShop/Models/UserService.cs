@@ -3,7 +3,7 @@ using ElectronicShop.Models.Interfaces;
 
 namespace ElectronicShop.Models
 {
-    internal class UserDataService : IUserService
+    internal class UserService : IUserService
     {
         private IDataService<UsersData> _userDataService = new DataService<UsersData> { FileName = "Users.json" };
         public void SaveUser(string username, string password)

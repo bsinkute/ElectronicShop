@@ -15,7 +15,7 @@ namespace ElectronicShop.Models
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("only letters (both uppercase and lowercase), \ndigits, and underscores, \nand at least 6 but not more then 12 more characters:");
                 Console.ResetColor();
-                Console.WriteLine("Please enter a NICNAME:");
+                Console.WriteLine("Please enter a NICKNAME:");
                 var nickName = Console.ReadLine();
                 Console.WriteLine("Password Must contain at least: ");
                 Console.ForegroundColor = ConsoleColor.Magenta;
@@ -27,8 +27,8 @@ namespace ElectronicShop.Models
                 {
                     
                     IPasswordService encodePsw = new PasswordService(password);
-                    var encPsw= encodePsw.EncryptString();
-                    IUserService userService = new UserDataService();
+                    var encPsw= encodePsw.EncryptPassword();
+                    IUserService userService = new UserService();
                     userService.SaveUser(nickName, encPsw);
                     ILoadShop loadShop = new LoadShopService();
                     Console.Clear();
