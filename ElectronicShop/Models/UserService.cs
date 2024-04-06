@@ -14,7 +14,8 @@ namespace ElectronicShop.Models
         }
         public string GetUser(string username, string password)
         {
-            var user = _userDataService.ReadJson() ?? new UsersData();
+            var userData = _userDataService.ReadJson() ?? new UsersData();
+            var user = userData.Users.Find(u => u.Username == username && u.Password == password);
             return user.ToString();
         }
 
