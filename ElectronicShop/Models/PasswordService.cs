@@ -40,10 +40,10 @@ namespace ElectronicShop.Models
             }
             return Convert.ToBase64String(array);
         }
-        public string DecryptPassword(string encpsw)
+        public string DecryptPassword(string encryptedPassword)
         {
             byte[] iv = new byte[16];
-            byte[] buffer = Convert.FromBase64String(encpsw);
+            byte[] buffer = Convert.FromBase64String(encryptedPassword);
 
             using (Aes aes = Aes.Create())
             {
