@@ -8,5 +8,10 @@
         public string InCartItemDescription { get; set; }
         public decimal InCartItemPrice { get; set; }
         public int InCartItemQuantity { get; set; }
+
+        public override string ToString()
+        {
+            return $"Item Nr.: {InCartItemID}, {InCartItemName}, Description: {InCartItemDescription}, Price: {InCartItemPrice}€";
+        }
     }
 }

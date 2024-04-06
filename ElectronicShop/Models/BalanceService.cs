@@ -26,20 +26,5 @@ namespace ElectronicShop.Models
 
             Console.WriteLine($"Added {amountToAdd} to customer's balance. New balance: {user.GetBalance()}");
         }
-
-        public bool DeduceBalance(User user, decimal amountToDeduce)
-        {
-            if (user.TryDeduceMoney(amountToDeduce))
-            {
-                SaveUser(user);
-                Console.WriteLine($"Deduced {amountToDeduce} from customer's balance. New balance: {user.GetBalance()}");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Insufficient balance. Tried deducing {amountToDeduce} from {user.GetBalance()}");
-                return false;
-            }
-        }
     }
 }

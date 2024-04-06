@@ -8,7 +8,6 @@ namespace ElectronicShop.Models
         {
             CartItem cartItem = new CartItem
             {
-                UserID =66,// Apjungiant reikės pakeisti 66 Į CURRENT USER
                 InCartItemID = item.Id,
                 InCartItemName = item.Name,
                 InCartItemDescription = item.Description,
@@ -16,6 +15,11 @@ namespace ElectronicShop.Models
                 InCartItemQuantity = item.Quantity,
             };
             CartItems.Add(cartItem);
+        }
+
+        public decimal TotalPrice()
+        {
+            return CartItems.Sum(x => x.InCartItemPrice);
         }
     }
 }
