@@ -10,7 +10,7 @@ namespace ElectronicShop.Models
 {
     public class NewUser : IUser
     {
-        public List<User> Users { get; set; } = [];
+        public List<UserDc> Users { get; set; } = [];
         public string Username { get; set; }
         public string Password { get; set; }
         public string EmailAddress { get; set; }
