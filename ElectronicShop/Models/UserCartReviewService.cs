@@ -59,7 +59,7 @@ namespace ElectronicShop.Models
                     Console.WriteLine("Payment--- Method");
                     break;
                 case 2: 
-                    UserWindow userWindow = new UserWindow();
+                    UserWindowService userWindow = new UserWindowService();
                     userWindow.LoadUserWindow(out int non);
                     break;
                 default: 
