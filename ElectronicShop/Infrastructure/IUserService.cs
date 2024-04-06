@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace ElectronicShop.Infrastructure
 {
-    internal interface IUserService
+    public interface IUserService
     {
-        public interface IUserService
-        {
-            bool SaveUser(string username, string password, string emailAddress);
-            bool GetUser(string username, string password);
-        }
+        bool SaveUser(string username, string password, string emailAddress);
+        bool GetUser(string username, string password);
     }
 }

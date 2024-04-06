@@ -20,10 +20,10 @@ namespace ElectronicShop.Models
         public bool SaveUser(string username, string password, string emailAddress)
         {
             var users = _userDataService.ReadJson() ?? [];
-            int userID = users.Any() ? users.Max(item => item.UserId) + 1 : 1;
+            int userId = users.Any() ? users.Max(item => item.UserId) + 1 : 1;
             var newUser = new User()
             {
-                UserId = userID,
+                UserId = userId,
                 Username = username,
                 Password = password,
                 EmailAddress = emailAddress
@@ -33,11 +33,13 @@ namespace ElectronicShop.Models
             return true;
         }
 
-        public User GetUser(string userName, string password)
+        public bool GetUser(string username, string password)
         {
             var users = _userDataService.ReadJson() ?? [];
-            var user = users.Find(u => u.Username == userName && u.Password == password);
-            return user;
+            var user = users.Find(u => u.Username == username && u.Password == password);
+            return user.;
         }
+
+
     }
 }
