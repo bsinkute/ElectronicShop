@@ -43,9 +43,13 @@ namespace ElectronicShop.Models
                 }
                 else
                 {
+                    Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Nickname or Pasword does not much minimum requirements. Try again");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Press ENTER");
                     Console.ResetColor();
+                    Console.ReadLine();
                     continue;
                 }
             }

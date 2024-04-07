@@ -59,8 +59,8 @@ namespace ElectronicShop.Models
                     Console.WriteLine("Payment--- Method");
                     break;
                 case 2: 
-                    UserWindow userWindow = new UserWindow();
-                    userWindow.LoadUserWindow(out int non);
+                    UserWindowService userWindow = new UserWindowService();
+                    userWindow.LoadUserWindow();
                     break;
                 default: 
                     Console.WriteLine("ERROR from UserCartReviewService.ReviewSelect");
