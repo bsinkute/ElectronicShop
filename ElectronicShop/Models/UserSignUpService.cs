@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ElectronicShop.Models
 {
-    internal class UserSignUpService : IUserSignUp
+    public class UserSignUpService : IUserSignUp
     {
         public void SignUp()
         {
@@ -30,7 +30,6 @@ namespace ElectronicShop.Models
                     var encPsw= encodePsw.EncryptPassword();
                     IUserService userService = new UserService();
                     userService.SaveUser(nickName, encPsw);
-                    ILoadShop loadShop = new LoadShopService();
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("User successfully created");
@@ -39,7 +38,7 @@ namespace ElectronicShop.Models
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.Clear();
-                    loadShop.Load();
+                    break;
                 }
                 else
                 {

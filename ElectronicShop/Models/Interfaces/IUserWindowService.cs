@@ -1,8 +1,8 @@
 ﻿namespace ElectronicShop.Models.Interfaces
 {
-    internal interface IUserWindowService
+    public interface IUserWindowService
     {
-        void LoadUserWindow();
-        void UserWindowSelector(int selectionFromUserWindow);
+        void LoadUserWindow(User user);
+        void UserWindowSelector(int selectionFromUserWindow, User user);
     }
 }

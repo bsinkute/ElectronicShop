@@ -2,7 +2,7 @@
 
 namespace ElectronicShop.Models
 {
-    internal class UsersData
+    public class UsersData
     {
         public List<User> Users { get; set; } = [];
         public void AddUser(string userName, string userPassword)
@@ -15,6 +15,16 @@ namespace ElectronicShop.Models
                 Password = userPassword
             };
             Users.Add(user);
+        }
+        
+        public void UpdateUser(User newUser)
+        {
+            var userIndex = Users.FindIndex(user => user.UserID == newUser.UserID);
+            if (userIndex == -1)
+            {
+                return;
+            }
+            Users[userIndex] = newUser;
         }
     }
 }

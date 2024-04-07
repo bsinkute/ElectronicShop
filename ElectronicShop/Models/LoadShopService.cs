@@ -2,11 +2,17 @@
 
 namespace ElectronicShop.Models
 {
-    internal class LoadShopService : ILoadShop
+    public class LoadShopService : ILoadShop
     {
-        //1. SignUp User 2. LogIn User 3. Login Admin 4. Exit
+        private readonly IUserLoginService _userLoginService;
 
-        public void Load()// sioje vietoje (out int loadSelect) kur daryti SWITCH
+        public LoadShopService(IUserLoginService userLoginService)
+        {
+            _userLoginService = userLoginService;
+        }
+
+
+        public void Load()
         {
             while (true)
             {
@@ -34,8 +40,7 @@ namespace ElectronicShop.Models
                     userSignUp.SignUp();
                     break;
                 case 2:
-                    IUserLoginService userLogin = new UserLoginService();
-                    userLogin.Login();
+                    _userLoginService.Login();
                     break;
                 case 3:
                     //Admin login

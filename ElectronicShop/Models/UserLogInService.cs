@@ -3,6 +3,13 @@ namespace ElectronicShop.Models
 {
     public class UserLoginService : IUserLoginService
     {
+        private readonly IUserWindowService _userWindowService;
+
+        public UserLoginService(IUserWindowService userWindowService)
+        {
+            _userWindowService = userWindowService;
+        }
+
         public User CurrentUser { get; private set; }
         public void Login()
         {
@@ -40,8 +47,7 @@ namespace ElectronicShop.Models
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.Clear();
-                    UserWindowService userWindow = new UserWindowService();
-                    userWindow.LoadUserWindow();
+                    _userWindowService.LoadUserWindow(CurrentUser);
                 }
                 else
                 {

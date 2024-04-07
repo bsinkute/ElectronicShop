@@ -1,6 +1,6 @@
 ﻿namespace ElectronicShop.Models.Interfaces
 {
-    internal interface IUserLoginService
+    public interface IUserLoginService
     {
         public User CurrentUser { get; }
         void Login();
