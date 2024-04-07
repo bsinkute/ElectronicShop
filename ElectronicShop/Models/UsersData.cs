@@ -1,6 +1,4 @@
-﻿using ElectronicShop.Models.Shop;
-
-namespace ElectronicShop.Models
+﻿namespace ElectronicShop.Models
 {
     public class UsersData
     {
@@ -25,6 +23,16 @@ namespace ElectronicShop.Models
                 return;
             }
             Users[userIndex] = newUser;
+        }
+
+        public void RemoveUser(int userId)
+        {
+            var userIndex = Users.FindIndex(user => user.UserID == userId);
+            if (userIndex == -1)
+            {
+                return;
+            }
+            Users.RemoveAt(userIndex);
         }
     }
 }

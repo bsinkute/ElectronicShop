@@ -27,26 +27,24 @@ namespace ElectronicShop.Models
 
         private void Choise(int selectionFromAdminWindow)
         {
+            Console.Clear();
             switch (selectionFromAdminWindow)
             {
                 case 1:
-                    Console.Clear();
                     AddNewItem();
                     break;
                 case 2:
-                    Console.Clear();
                     EditItem();
                     break;
                 case 3:
-                    Console.Clear();
                     UserReview();
+                    Console.ReadLine();
                     break;
                 case 4:
-                    Console.Clear();
-                    Console.WriteLine("Delete User--- Method");
+                    DeleteUser();
                     break;
                 default:
-                    Console.WriteLine("ERROR");
+                    Console.WriteLine("You have to choose a number between 1 and 4");
                     break;
             }
         }
@@ -100,21 +98,26 @@ namespace ElectronicShop.Models
 
             var inventory = _inventoryDataService.ReadJson() ?? new Inventory();
 
-            Console.WriteLine("Enter the ID of the item you want to edit:");
+            Console.WriteLine("Current shop items:");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(inventory);
+            Console.ResetColor();
+
+            Console.Write("Enter the ID of the item you want to edit: ");
             if (!int.TryParse(Console.ReadLine(), out int itemId))
             {
-                Console.WriteLine("Invalid input. Please enter a valid integer ID.");
+                Console.Write("Invalid input. Please enter a valid integer ID: ");
                 return;
             }
 
             var itemToEdit = inventory.Items.FirstOrDefault(item => item.Id == itemId);
             if (itemToEdit == null)
             {
-                Console.WriteLine($"Item with ID {itemId} not found in inventory.");
+                Console.WriteLine($"Item with ID {itemId:000} not found in inventory.");
                 return;
             }
 
-            Console.WriteLine($"Editing item with ID {itemId}:");
+            Console.WriteLine($"Editing item with ID {itemId:000}:");
 
             Console.Write("Enter new Item Name (press Enter to keep current): ");
             var newName = Console.ReadLine();
@@ -141,7 +144,7 @@ namespace ElectronicShop.Models
             Console.WriteLine("Item updated successfully.");
         }
 
-        private void UserReview()
+        private UsersData UserReview()
         {
             try
             {
@@ -150,14 +153,63 @@ namespace ElectronicShop.Models
                 if (users == null || users.Users.Count == 0)
                 {
                     Console.WriteLine("No users found.");
-                    return;
+                    return users;
                 }
 
                 Console.WriteLine("Users:");
                 foreach (var user in users.Users)
                 {
-                    Console.WriteLine($"ID: {user.UserID}, Name: {user.Username}, Password: {user.Password}");
+                    Console.WriteLine(user);
                 }
+
+                return users;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
+        }
+
+        private void DeleteUser()
+        {
+            try
+            {
+                var users = UserReview();
+
+                if (users == null || users.Users.Count == 0)
+                {
+                    return;
+                }
+
+                Console.Write("Enter user id that should be deleted: ");
+                var parseSuccess = int.TryParse(Console.ReadLine(), out int userIdToDelete);
+                while (!parseSuccess || !users.Users.Any(user => user.UserID == userIdToDelete))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    if (!parseSuccess)
+                    {
+                        Console.Write("Please enter a valid integer: ");
+                    }
+                    else if (!users.Users.Any(user => user.UserID == userIdToDelete))
+                    {
+                        Console.Write("User not found. Enter user id, from the list above: ");
+                    }
+                    Console.ResetColor();
+                    parseSuccess = int.TryParse(Console.ReadLine(), out userIdToDelete);
+                }
+
+                users.RemoveUser(userIdToDelete);
+                _userDataService.WriteJson(users);
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("User with an id ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(userIdToDelete.ToString("000"));
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(" has been deleted.");
+                Console.ResetColor();
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
