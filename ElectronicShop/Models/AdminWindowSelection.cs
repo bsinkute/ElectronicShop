@@ -27,26 +27,23 @@ namespace ElectronicShop.Models
 
         private void Choise(int selectionFromAdminWindow)
         {
+            Console.Clear();
             switch (selectionFromAdminWindow)
             {
                 case 1:
-                    Console.Clear();
                     AddNewItem();
                     break;
                 case 2:
-                    Console.Clear();
                     EditItem();
                     break;
                 case 3:
-                    Console.Clear();
                     UserReview();
                     break;
                 case 4:
-                    Console.Clear();
-                    Console.WriteLine("Delete User--- Method");
+                    DeleteUser();
                     break;
                 default:
-                    Console.WriteLine("ERROR");
+                    Console.WriteLine("You have to choose a number between 1 and 4");
                     break;
             }
         }
@@ -141,7 +138,7 @@ namespace ElectronicShop.Models
             Console.WriteLine("Item updated successfully.");
         }
 
-        private void UserReview()
+        private UsersData UserReview()
         {
             try
             {
@@ -150,7 +147,7 @@ namespace ElectronicShop.Models
                 if (users == null || users.Users.Count == 0)
                 {
                     Console.WriteLine("No users found.");
-                    return;
+                    return users;
                 }
 
                 Console.WriteLine("Users:");
@@ -158,6 +155,54 @@ namespace ElectronicShop.Models
                 {
                     Console.WriteLine($"ID: {user.UserID}, Name: {user.Username}, Password: {user.Password}");
                 }
+
+                return users;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
+        }
+
+        private void DeleteUser()
+        {
+            try
+            {
+                var users = UserReview();
+
+                if (users == null || users.Users.Count == 0)
+                {
+                    return;
+                }
+
+                Console.Write("Enter user id that should be deleted: ");
+                var parseSuccess = int.TryParse(Console.ReadLine(), out int userIdToDelete);
+                while (!parseSuccess || !users.Users.Any(user => user.UserID == userIdToDelete))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    if (!parseSuccess)
+                    {
+                        Console.Write("Please enter a valid integer: ");
+                    }
+                    else if (!users.Users.Any(user => user.UserID == userIdToDelete))
+                    {
+                        Console.Write("User not found. Enter user id, from the list above: ");
+                    }
+                    Console.ResetColor();
+                    parseSuccess = int.TryParse(Console.ReadLine(), out userIdToDelete);
+                }
+
+                users.RemoveUser(userIdToDelete);
+                _userDataService.WriteJson(users);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("User with an id ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(userIdToDelete.ToString("000"));
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(" has been deleted.");
+                Console.ResetColor();
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
