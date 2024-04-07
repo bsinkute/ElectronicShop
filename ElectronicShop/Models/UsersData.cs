@@ -19,12 +19,12 @@ namespace ElectronicShop.Models
         
         public void UpdateUser(User newUser)
         {
-            var oldUser = Users.FirstOrDefault(user => user.UserID == newUser.UserID);
-            if (oldUser == null)
+            var userIndex = Users.FindIndex(user => user.UserID == newUser.UserID);
+            if (userIndex == -1)
             {
                 return;
             }
-            oldUser = newUser;
+            Users[userIndex] = newUser;
         }
     }
 }

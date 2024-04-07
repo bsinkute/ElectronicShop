@@ -2,27 +2,34 @@
 using ElectronicShop.Models.Shop;
 namespace ElectronicShop.Models
 {
-    internal class UserShopService
+    public class UserShopService
     {
+        private readonly IDataService<UsersData> _userDataService;
         private readonly IDataService<Inventory> _inventoryDataService;
-        public UserShopService(IDataService<Inventory> inventoryDataService) 
+
+        public UserShopService(IDataService<UsersData> userDataService, IDataService<Inventory> inventoryDataService) 
         {
+            _userDataService = userDataService;
             _inventoryDataService = inventoryDataService;
         }
-        public IDataService<Cart> writeData = new DataService<Cart> { FileName = "Users Cart Items.json" };
-        public void UserShoping()
+
+        public void UserShoping(User user)
         {
             var itemAddToCart = new Cart();
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Go Shoping");
-                Console.WriteLine("Insert Item Nr.to Add to Your Cart \nQ. Go Back");
+                Console.WriteLine("Insert Item Id. to Add to Your Cart \nQ. Go Back");
                 var shopItems = _inventoryDataService.ReadJson() ?? new Inventory();
                 if(shopItems == null) { Console.WriteLine("ERROR: SHOP ITEMS RETURNED AS NULL"); break; }
                 foreach (var item in shopItems.Items)
                 {
-                    Console.WriteLine($"Item Nr.: {item.Id}, {item.Name},Description: {item.Description}, Price: {item.Price}€");
+                    var itemToAdd = itemAddToCart.CartItems.FirstOrDefault(cartItem => cartItem.InCartItemID == item.Id);
+                    var itemInUserCart = user.Cart.CartItems.FirstOrDefault(cartItem => cartItem.InCartItemID == item.Id);
+                    item.Quantity -= itemInUserCart?.InCartItemQuantity ?? 0;
+                    item.Quantity -= itemToAdd?.InCartItemQuantity ?? 0;
+                    Console.WriteLine(item.ToString());
                 }
                 string shopSelection = Console.ReadLine().ToLower().ToString();
                 //string pattern = "\\d{3}";//>>>> paterna greiciausia teks trinti
@@ -39,7 +46,10 @@ namespace ElectronicShop.Models
                 }
                 else if (shopSelection == "q")
                 {
-                    writeData.WriteJson(itemAddToCart);
+                    user.Cart = itemAddToCart;
+                    var usersData = _userDataService.ReadJson() ?? new UsersData();
+                    usersData.UpdateUser(user);
+                    _userDataService.WriteJson(usersData);
                     break;
                 }
                 else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))//>>> isMatch && greiciausia teks trinti

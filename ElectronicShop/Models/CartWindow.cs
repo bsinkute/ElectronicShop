@@ -27,7 +27,7 @@ namespace ElectronicShop.Models
                 }
                 Console.Write($"Total Cart Price: ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(cart.TotalPrice() + "€");
+                Console.WriteLine(cart.TotalPrice().ToString("N") + " €");
                 Console.ResetColor();
                 Console.WriteLine("1. Payment");
                 Console.WriteLine("2. Go Back");
@@ -78,13 +78,13 @@ namespace ElectronicShop.Models
 
             if (user.TryDeduceMoney(validCart.TotalPrice()))
             {
-                user.Cart.CartItems.Clear();
-
                 foreach (var cartItem in user.Cart.CartItems)
                 {
-                    var inventoryItem = inventory.Items.First(item => item.Id == cartItem.InCartItemID);
-                    inventoryItem.Quantity -= cartItem.InCartItemQuantity;
+                    var itemIndex = inventory.Items.FindIndex(item => item.Id == cartItem.InCartItemID);
+                    inventory.Items[itemIndex].Quantity -= cartItem.InCartItemQuantity;
                 }
+
+                user.Cart.CartItems.Clear();
 
                 _inventoryDataService.WriteJson(inventory);
                 SaveUser(user);
@@ -94,7 +94,8 @@ namespace ElectronicShop.Models
             else
             {
                 Console.WriteLine("Insufficient funds to buy these items");
-                Console.WriteLine($"You need at least {validCart.TotalPrice() - user.GetBalance():N} € more.");
+                Console.WriteLine($"You need at least {validCart.TotalPrice() - user.Balance:N} € more.");
+                Console.ReadLine();
             }
         }
 

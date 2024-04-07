@@ -24,7 +24,7 @@ namespace ElectronicShop.Models
             user.AddBalance(amountToAdd);
             SaveUser(user);
 
-            Console.WriteLine($"Added {amountToAdd} to customer's balance. New balance: {user.GetBalance()}");
+            Console.WriteLine($"Added {amountToAdd:N} € to customer's balance. New balance: {user.Balance:N} €");
         }
     }
 }

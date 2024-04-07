@@ -11,7 +11,7 @@
 
         public override string ToString()
         {
-            return $"Item Nr.: {InCartItemID}, {InCartItemName}, Description: {InCartItemDescription}, Price: {InCartItemPrice}€";
+            return $"Item Id.: {InCartItemID:000}, {InCartItemName}, Description: {InCartItemDescription}, Price: {InCartItemPrice:N} €, Qty: {InCartItemQuantity}";
         }
     }
 }
