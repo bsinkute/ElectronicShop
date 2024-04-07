@@ -1,18 +1,18 @@
 ﻿using ElectronicShop.Models.Interfaces;
 namespace ElectronicShop.Models
 {
-    public class UserLogInService : IUserLogin
+    public class UserLoginService : IUserLoginService
     {
-        public int CurentUserID { get; set; }
+        public User CurrentUser { get; private set; }
         public void Login()
         {
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("User LogIn:");
-                Console.WriteLine("Please enter a NickName:");
+                Console.WriteLine("User login:");
+                Console.WriteLine("Please enter your nickname:");
                 var nickName = Console.ReadLine();
-                Console.WriteLine("Please enter a password:");
+                Console.WriteLine("Please enter your password:");
                 var password = Console.ReadLine();
                 IPasswordService encodePsw = new PasswordService(password);
                 var encryptedPassword = encodePsw.EncryptPassword();
@@ -21,7 +21,7 @@ namespace ElectronicShop.Models
                 if (user==null)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Your NickName or Password don't match according registration files");
+                    Console.WriteLine("Your nickname and password does not match any registered user");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
@@ -31,7 +31,7 @@ namespace ElectronicShop.Models
                 }
                 else if (user.Username == nickName && user.Password == encryptedPassword)
                 {
-                    CurentUserID = user.UserID;
+                    CurrentUser = user;
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"You loged as {nickName} successfully");
@@ -56,6 +56,5 @@ namespace ElectronicShop.Models
                 }
             }
         }
-        public int UserID() { return CurentUserID; }
     }
 }

@@ -34,7 +34,7 @@ namespace ElectronicShop.Models
                     userSignUp.SignUp();
                     break;
                 case 2:
-                    IUserLogin userLogin = new UserLogInService();
+                    IUserLoginService userLogin = new UserLoginService();
                     userLogin.Login();
                     break;
                 case 3:
