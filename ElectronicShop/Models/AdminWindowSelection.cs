@@ -6,13 +6,26 @@ namespace ElectronicShop.Models
     internal class AdminWindowSelection
     {
         private readonly IDataService<Inventory> _inventoryDataService;
+        private readonly IDataService<UsersData> _userDataService;
 
-        public AdminWindowSelection(IDataService<Inventory> inventoryDataService)
+        public AdminWindowSelection(IDataService<Inventory> inventoryDataService, IDataService<UsersData> userDataService)
         {
             _inventoryDataService = inventoryDataService;
+            _userDataService = userDataService;
         }
 
-        public void Selector(int selectionFromAdminWindow)
+        public void Selector()
+        {
+            var adminWindow = new AdminWindow();
+            adminWindow.LoadAdminSettingsWindow(out int selectionFromAdminWindow);
+            while (selectionFromAdminWindow != 5)
+            {
+                Choise(selectionFromAdminWindow);
+                adminWindow.LoadAdminSettingsWindow(out selectionFromAdminWindow);
+            }
+        }
+
+        private void Choise(int selectionFromAdminWindow)
         {
             switch (selectionFromAdminWindow)
             {
@@ -26,18 +39,11 @@ namespace ElectronicShop.Models
                     break;
                 case 3:
                     Console.Clear();
-                    Console.WriteLine("User Review--- Method");
+                    UserReview();
                     break;
                 case 4:
                     Console.Clear();
                     Console.WriteLine("Delete User--- Method");
-                    break;
-                case 5:
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You Loged Out");
-                    Console.ResetColor();
-                    Console.WriteLine("Shop Load--- Method");
                     break;
                 default:
                     Console.WriteLine("ERROR");
@@ -133,6 +139,30 @@ namespace ElectronicShop.Models
             _inventoryDataService.WriteJson(inventory);
 
             Console.WriteLine("Item updated successfully.");
+        }
+
+        private void UserReview()
+        {
+            try
+            {
+                var users = _userDataService.ReadJson() ?? new UsersData();
+
+                if (users == null || users.Users.Count == 0)
+                {
+                    Console.WriteLine("No users found.");
+                    return;
+                }
+
+                Console.WriteLine("Users:");
+                foreach (var user in users.Users)
+                {
+                    Console.WriteLine($"ID: {user.UserID}, Name: {user.Username}, Password: {user.Password}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }
