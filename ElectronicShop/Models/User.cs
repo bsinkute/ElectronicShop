@@ -26,5 +26,10 @@
             Balance -= amount;
             return true;
         }
+
+        public override string ToString()
+        {
+            return $"ID: {UserID:000}, Name: {Username}, Password: {Password}";
+        }
     }
 }
