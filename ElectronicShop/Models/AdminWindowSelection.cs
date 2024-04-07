@@ -1,5 +1,4 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
 using ElectronicShop.Models.Shop;
 
 namespace ElectronicShop.Models
@@ -7,15 +6,26 @@ namespace ElectronicShop.Models
     internal class AdminWindowSelection
     {
         private readonly IDataService<Inventory> _inventoryDataService;
-        private readonly IDataService<User> _userDataService;
+        private readonly IDataService<UsersData> _userDataService;
 
-        public AdminWindowSelection(IDataService<Inventory> inventoryDataService, IDataService<User> userDataService)
+        public AdminWindowSelection(IDataService<Inventory> inventoryDataService, IDataService<UsersData> userDataService)
         {
             _inventoryDataService = inventoryDataService;
             _userDataService = userDataService;
         }
 
-        public void Selector(int selectionFromAdminWindow)
+        public void Selector()
+        {
+            var adminWindow = new AdminWindow();
+            adminWindow.LoadAdminSettingsWindow(out int selectionFromAdminWindow);
+            while (selectionFromAdminWindow != 5)
+            {
+                Choise(selectionFromAdminWindow);
+                adminWindow.LoadAdminSettingsWindow(out selectionFromAdminWindow);
+            }
+        }
+
+        private void Choise(int selectionFromAdminWindow)
         {
             switch (selectionFromAdminWindow)
             {
@@ -34,13 +44,6 @@ namespace ElectronicShop.Models
                 case 4:
                     Console.Clear();
                     Console.WriteLine("Delete User--- Method");
-                    break;
-                case 5:
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You Loged Out");
-                    Console.ResetColor();
-                    Console.WriteLine("Shop Load--- Method");
                     break;
                 default:
                     Console.WriteLine("ERROR");
@@ -140,30 +143,20 @@ namespace ElectronicShop.Models
 
         private void UserReview()
         {
-            string filePath = "users.json";
-
             try
             {
-                if (!File.Exists(filePath))
+                var users = _userDataService.ReadJson() ?? new UsersData();
+
+                if (users == null || users.Users.Count == 0)
                 {
-                    Console.WriteLine("users.json file does not exist.");
-                    return;
-                }
-
-                string jsonContent = File.ReadAllText(filePath);
-
-                var users = _userDataService.ReadJson() ?? new User();
-
-                if (users == null || users.Length == 0)
-                {
-                    Console.WriteLine("No users found in JSON.");
+                    Console.WriteLine("No users found.");
                     return;
                 }
 
                 Console.WriteLine("Users:");
-                foreach (var user in users)
+                foreach (var user in users.Users)
                 {
-                    Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Email: {user.Email}, Password: {user.Password}");
+                    Console.WriteLine($"ID: {user.UserID}, Name: {user.Username}, Password: {user.Password}");
                 }
             }
             catch (Exception ex)
