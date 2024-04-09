@@ -1,6 +1,6 @@
-﻿using ElectronicShop.Models.Interfaces;
+﻿using ElectronicShop.Interfaces;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     public class LoadShopService : ILoadShop
     {
@@ -24,7 +24,7 @@ namespace ElectronicShop.Models
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write("Enter number from 1 to 4: ");
                 Console.ResetColor();
-                bool isLoadCorect= int.TryParse(Console.ReadLine(),out int loadSelect);
+                bool isLoadCorect = int.TryParse(Console.ReadLine(), out int loadSelect);
                 if (!isLoadCorect || loadSelect < 1 || loadSelect > 4)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -39,8 +39,8 @@ namespace ElectronicShop.Models
                 else if (isLoadCorect && loadSelect == 4) break;
             }
         }
-        public void LoadShopSelector(int loadSelect) 
-        { 
+        public void LoadShopSelector(int loadSelect)
+        {
             switch (loadSelect)
             {
                 case 1:
