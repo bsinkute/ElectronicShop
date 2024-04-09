@@ -35,7 +35,6 @@ namespace ElectronicShop.Models
                     LoadShopSelector(loadSelect);
                 }
                 else if (isLoadCorect && loadSelect == 4) break;
-                
             }
         }
         public void LoadShopSelector(int loadSelect) 

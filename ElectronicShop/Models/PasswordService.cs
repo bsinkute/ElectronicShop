@@ -33,7 +33,6 @@ namespace ElectronicShop.Models
                         {
                             streamWriter.Write(PswText);
                         }
-
                         array = memoryStream.ToArray();
                     }
                 }

@@ -116,7 +116,6 @@ namespace ElectronicShop.Models
                 Console.ReadLine();
             }
         }
-
         public void SaveUser(User user)
         {
             var userData = _userDataService.ReadJson() ?? new UsersData();

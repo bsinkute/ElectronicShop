@@ -2,11 +2,11 @@
 
 namespace ElectronicShop.Models
 {
-    internal class UserSettingsSelecter
+    internal class UserSettingsSelector
     {
         private readonly IBalanceService _balanceService;
 
-        public UserSettingsSelecter(IBalanceService balanceService)
+        public UserSettingsSelector(IBalanceService balanceService)
         {
             _balanceService = balanceService;
         }
