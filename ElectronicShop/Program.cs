@@ -1,6 +1,5 @@
 using ElectronicShop.Infrastructure;
 using ElectronicShop.Models;
-using ElectronicShop.Models.Shop;
 
 namespace ElectronicShop
 {

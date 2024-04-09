@@ -1,13 +1,13 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Shop;
-namespace ElectronicShop.Models
+using ElectronicShop.Models;
+namespace ElectronicShop.Services
 {
     public class UserShopService
     {
         private readonly IDataService<UsersData> _userDataService;
         private readonly IDataService<Inventory> _inventoryDataService;
 
-        public UserShopService(IDataService<UsersData> userDataService, IDataService<Inventory> inventoryDataService) 
+        public UserShopService(IDataService<UsersData> userDataService, IDataService<Inventory> inventoryDataService)
         {
             _userDataService = userDataService;
             _inventoryDataService = inventoryDataService;
@@ -22,7 +22,7 @@ namespace ElectronicShop.Models
                 Console.WriteLine("Go Shoping");
                 Console.WriteLine("Insert Item Id. to Add to Your Cart \nQ. Go Back");
                 var shopItems = _inventoryDataService.ReadJson() ?? new Inventory();
-                if(shopItems == null) 
+                if (shopItems == null)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("ERROR: SHOP ITEMS RETURNED AS NULL");
@@ -30,7 +30,7 @@ namespace ElectronicShop.Models
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
                     Console.ReadLine();
-                    break; 
+                    break;
                 }
                 foreach (var item in shopItems.Items)
                 {
@@ -62,7 +62,7 @@ namespace ElectronicShop.Models
                 else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))
                 {
                     Item selectedItem = shopItems.Items.First(item => item.Id == Convert.ToInt32(shopSelection));
-                    itemAddToCart.AddToUserCart(selectedItem) ;
+                    itemAddToCart.AddToUserCart(selectedItem);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Item Added to Your Cart");
                     Console.ForegroundColor = ConsoleColor.Blue;

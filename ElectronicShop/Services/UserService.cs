@@ -1,20 +1,16 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
+using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
-    public class UserService : IUserService
+    internal class UserService : IUserService
     {
-        private readonly IDataService<UsersData> _userDataService;
-        public UserService(IDataService<UsersData> userDataService)
-        {
-            _userDataService = userDataService;
-        }
-
+        private IDataService<UsersData> _userDataService = new DataService<UsersData> { FileName = "Users.json" };
         public void SaveUser(string username, string password)
         {
             var user = _userDataService.ReadJson() ?? new UsersData();
-            user.AddUser(username,password);
+            user.AddUser(username, password);
             _userDataService.WriteJson(user);
         }
         public User GetUser(string username, string password)

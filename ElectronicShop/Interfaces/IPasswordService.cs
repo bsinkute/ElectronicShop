@@ -1,4 +1,4 @@
-﻿namespace ElectronicShop.Models.Interfaces
+﻿namespace ElectronicShop.Interfaces
 {
     public interface IPasswordService
     {

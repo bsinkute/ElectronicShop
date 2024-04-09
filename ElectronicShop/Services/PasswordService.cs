@@ -1,8 +1,8 @@
-﻿using ElectronicShop.Models.Interfaces;
+﻿using ElectronicShop.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     internal class PasswordService : IPasswordService
     {
@@ -27,9 +27,9 @@ namespace ElectronicShop.Models
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
                     {
-                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
                         {
                             streamWriter.Write(PswText);
                         }
@@ -52,9 +52,9 @@ namespace ElectronicShop.Models
 
                 using (MemoryStream memoryStream = new MemoryStream(buffer))
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        using (StreamReader streamReader = new StreamReader(cryptoStream))
                         {
                             return streamReader.ReadToEnd();
                         }

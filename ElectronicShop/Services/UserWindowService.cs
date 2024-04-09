@@ -1,7 +1,7 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
-using ElectronicShop.Models.Shop;
-namespace ElectronicShop.Models
+using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
+namespace ElectronicShop.Services
 {
     public class UserWindowService : IUserWindowService
     {
@@ -9,7 +9,7 @@ namespace ElectronicShop.Models
         private readonly IDataService<Inventory> _inventoryDataService;
         private readonly IBalanceService _balanceService;
 
-        public UserWindowService(IDataService<UsersData> userDataService, 
+        public UserWindowService(IDataService<UsersData> userDataService,
             IDataService<Inventory> inventoryDataService,
             IBalanceService balanceService)
         {
@@ -58,7 +58,7 @@ namespace ElectronicShop.Models
                 case 1:
                     var userSettingsWindow = new UserSettingsWindow();
                     userSettingsWindow.LoadUserSettingsWindow(out int userSettingSelection);
-                    var userSettingsSelection = new UserSettingsSelector(_balanceService);
+                    var userSettingsSelection = new UserSettingsSelecter(_balanceService);
                     userSettingsSelection.UserSettingsWindowSelecter(userSettingSelection, user);
                     break;
                 case 2:

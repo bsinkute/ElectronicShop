@@ -1,5 +1,4 @@
-﻿using ElectronicShop.Models.Shop;
-namespace ElectronicShop.Models
+﻿namespace ElectronicShop.Models
 {
     public class Cart
     {
