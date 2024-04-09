@@ -1,26 +1,36 @@
-﻿namespace ElectronicShop.Models
+﻿using ElectronicShop.Models.Interfaces;
+
+namespace ElectronicShop.Models
 {
-    public class AdminLogin
+    public class AdminLogin : IAdmin
     {
-        public void AdminLogIn()
+        private readonly IAdminWindowSelection _adminWindowSelection;
+
+        public AdminLogin(IAdminWindowSelection adminWindowSelection)
+        {
+            _adminWindowSelection = adminWindowSelection;
+        }
+
+        public void Login()
         {
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Admin login: ");
+                Console.WriteLine("Admin login");
                 Console.WriteLine("Please enter your password:");
                 var adminPassword = Console.ReadLine();
 
                 if (adminPassword == "admin159")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"You loged as ADMIN successfully");
+                    Console.WriteLine($"You have successfully logged in as ADMIN");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.Clear();
-                    continue;
+                    _adminWindowSelection.SelectMenu();
+                    break;
                 }
                 else
                 {
