@@ -48,6 +48,7 @@ namespace ElectronicShop.Models
                     Console.ReadLine();
                     Console.Clear();
                     _userWindowService.LoadUserWindow(CurrentUser);
+                    break;
                 }
                 else
                 {

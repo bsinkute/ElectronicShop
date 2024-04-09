@@ -77,8 +77,6 @@ namespace ElectronicShop.Models
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.Clear();
-                    ILoadShop loadShopService = new LoadShopService();
-                    loadShopService.Load();
                     break;
                 default:
                     Console.WriteLine("Error at UserWindowSelector");
