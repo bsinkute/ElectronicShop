@@ -15,10 +15,15 @@ namespace ElectronicShop.Models
             while (true)
             {
                 Console.WriteLine("1. SignUp User \n2. LogIn User \n3. Login Admin \n4. Exit");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Enter number from 1 to 4: ");
+                Console.ResetColor();
                 bool isLoadCorect= int.TryParse(Console.ReadLine(),out int loadSelect);
                 if (!isLoadCorect || loadSelect < 1 || loadSelect > 4)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Please enter numbers from 1 to 4");
+                    Console.ResetColor();
                     continue;
                 }
                 else if (isLoadCorect && loadSelect >= 1 && loadSelect <= 3)
@@ -45,7 +50,9 @@ namespace ElectronicShop.Models
                     admin.AdminLogIn();
                     break;
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error at LoadShopSelector");
+                    Console.ResetColor();
                     break;
             }
         }

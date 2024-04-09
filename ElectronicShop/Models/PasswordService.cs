@@ -63,7 +63,5 @@ namespace ElectronicShop.Models
                 }
             }
         }
-
-        
     }
 }
