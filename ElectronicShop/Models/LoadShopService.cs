@@ -24,7 +24,6 @@ namespace ElectronicShop.Models
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write("Enter number from 1 to 4: ");
                 Console.ResetColor();
-                Console.WriteLine("1. Signup User \n2. Login User \n3. Login Admin \n4. Exit");
                 bool isLoadCorect= int.TryParse(Console.ReadLine(),out int loadSelect);
                 if (!isLoadCorect || loadSelect < 1 || loadSelect > 4)
                 {
