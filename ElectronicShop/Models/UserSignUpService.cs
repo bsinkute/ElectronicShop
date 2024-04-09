@@ -5,6 +5,13 @@ namespace ElectronicShop.Models
 {
     public class UserSignUpService : IUserSignUp
     {
+        private readonly IUserService _userService;
+
+        public UserSignUpService(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         public void SignUp()
         {
             while (true)
@@ -28,8 +35,7 @@ namespace ElectronicShop.Models
                     
                     IPasswordService encodePsw = new PasswordService(password);
                     var encPsw= encodePsw.EncryptPassword();
-                    IUserService userService = new UserService();
-                    userService.SaveUser(nickName, encPsw);
+                    _userService.SaveUser(nickName, encPsw);
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("User successfully created");

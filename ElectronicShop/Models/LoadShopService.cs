@@ -6,12 +6,15 @@ namespace ElectronicShop.Models
     {
         private readonly IUserLoginService _userLoginService;
         private readonly IAdmin _adminLogin;
+        private readonly IUserSignUp _userSignUp;
 
-        public LoadShopService(IUserLoginService userLoginService, IAdmin adminLogin)
+        public LoadShopService(IUserLoginService userLoginService, IAdmin adminLogin, IUserSignUp userSignUp)
         {
             _userLoginService = userLoginService;
             _adminLogin = adminLogin;
+            _userSignUp = userSignUp;
         }
+
         public void Load()
         {
             while (true)
@@ -21,7 +24,6 @@ namespace ElectronicShop.Models
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write("Enter number from 1 to 4: ");
                 Console.ResetColor();
-                Console.WriteLine("1. Signup User \n2. Login User \n3. Login Admin \n4. Exit");
                 bool isLoadCorect= int.TryParse(Console.ReadLine(),out int loadSelect);
                 if (!isLoadCorect || loadSelect < 1 || loadSelect > 4)
                 {
@@ -42,8 +44,7 @@ namespace ElectronicShop.Models
             switch (loadSelect)
             {
                 case 1:
-                    IUserSignUp userSignUp = new UserSignUpService();
-                    userSignUp.SignUp();
+                    _userSignUp.SignUp();
                     break;
                 case 2:
                     _userLoginService.Login();
