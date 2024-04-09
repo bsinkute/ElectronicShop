@@ -1,9 +1,10 @@
 ﻿using ElectronicShop.Infrastructure;
+using ElectronicShop.Models.Interfaces;
 using ElectronicShop.Models.Shop;
 
 namespace ElectronicShop.Models
 {
-    internal class AdminWindowSelection
+    internal class AdminWindowSelection : IAdminWindowSelection
     {
         private readonly IDataService<Inventory> _inventoryDataService;
         private readonly IDataService<UsersData> _userDataService;
@@ -14,7 +15,7 @@ namespace ElectronicShop.Models
             _userDataService = userDataService;
         }
 
-        public void Selector()
+        public void SelectMenu()
         {
             var adminWindow = new AdminWindow();
             adminWindow.LoadAdminSettingsWindow(out int selectionFromAdminWindow);

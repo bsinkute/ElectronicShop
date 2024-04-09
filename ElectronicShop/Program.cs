@@ -13,9 +13,10 @@ namespace ElectronicShop
             var balanceService = new BalanceService(usersDataService);
             var userWindowService = new UserWindowService(usersDataService, inventoryDataService, balanceService);
             var userLoginService = new UserLoginService(userWindowService);
-            var loadShopService = new LoadShopService(userLoginService);
             var adminWindowSelection = new AdminWindowSelection(inventoryDataService, usersDataService);
-
+            var adminLogin = new AdminLogin(adminWindowSelection);
+            var loadShopService = new LoadShopService(userLoginService, adminLogin);
+            
             Console.InputEncoding = System.Text.Encoding.UTF8;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.Unicode;

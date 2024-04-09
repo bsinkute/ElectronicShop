@@ -2,6 +2,6 @@
 {
     public interface IAdmin
     {
-        void AdminLogin();
+        void Login();
     }
 }

@@ -5,16 +5,19 @@ namespace ElectronicShop.Models
     public class LoadShopService : ILoadShop
     {
         private readonly IUserLoginService _userLoginService;
+        private readonly IAdmin _adminLogin;
 
-        public LoadShopService(IUserLoginService userLoginService)
+        public LoadShopService(IUserLoginService userLoginService, IAdmin adminLogin)
         {
             _userLoginService = userLoginService;
+            _adminLogin = adminLogin;
         }
         public void Load()
         {
             while (true)
             {
-                Console.WriteLine("1. SignUp User \n2. LogIn User \n3. Login Admin \n4. Exit");
+                Console.Clear();
+                Console.WriteLine("1. Signup User \n2. Login User \n3. Login Admin \n4. Exit");
                 bool isLoadCorect= int.TryParse(Console.ReadLine(),out int loadSelect);
                 if (!isLoadCorect || loadSelect < 1 || loadSelect > 4)
                 {
@@ -41,8 +44,7 @@ namespace ElectronicShop.Models
                     _userLoginService.Login();
                     break;
                 case 3:
-                    AdminLogin admin = new AdminLogin();
-                    admin.AdminLogIn();
+                    _adminLogin.Login();
                     break;
                 default:
                     Console.WriteLine("Error at LoadShopSelector");
