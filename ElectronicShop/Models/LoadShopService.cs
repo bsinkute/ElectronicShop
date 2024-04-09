@@ -10,7 +10,7 @@ namespace ElectronicShop.Models
         {
             _userLoginService = userLoginService;
         }
-
+        public LoadShopService() { }
 
         public void Load()
         {
