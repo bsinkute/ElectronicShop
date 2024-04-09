@@ -31,6 +31,9 @@ namespace ElectronicShop.Models
                 Console.ResetColor();
                 Console.WriteLine("1. Payment");
                 Console.WriteLine("2. Go Back");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Enter number from 1 to 2: ");
+                Console.ResetColor();
                 bool isCorectSelection = int.TryParse(Console.ReadLine(), out int selectionFromUserCart);
                 if (!isCorectSelection || selectionFromUserCart < 1 || selectionFromUserCart > 2)
                 {
@@ -64,11 +67,15 @@ namespace ElectronicShop.Models
                 var inventoryItem = inventory.Items.FirstOrDefault(item => item.Id == cartItem.InCartItemID);
                 if (inventoryItem == null)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Item not found in the inventory. It will be taken out of the cart.");
+                    Console.ResetColor();
                 }
                 else if (inventoryItem.Quantity < cartItem.InCartItemQuantity)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Not enough items in the inventory. It will be taken out of the cart.");
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -88,17 +95,27 @@ namespace ElectronicShop.Models
 
                 _inventoryDataService.WriteJson(inventory);
                 SaveUser(user);
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Items purchased successfully! Press ENTER to continue shopping.");
+                Console.ResetColor();
                 Console.ReadLine();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Insufficient funds to buy these items");
-                Console.WriteLine($"You need at least {validCart.TotalPrice() - user.Balance:N} € more.");
+                Console.ResetColor();
+                Console.Write($"You need at least");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($" {validCart.TotalPrice() - user.Balance:N} € ");
+                Console.ResetColor();
+                Console.WriteLine($"more.");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Press ENTER");
+                Console.ResetColor();
                 Console.ReadLine();
             }
         }
-
         public void SaveUser(User user)
         {
             var userData = _userDataService.ReadJson() ?? new UsersData();

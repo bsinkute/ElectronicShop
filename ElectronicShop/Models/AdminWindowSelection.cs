@@ -45,7 +45,9 @@ namespace ElectronicShop.Models
                     DeleteUser();
                     break;
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("You have to choose a number between 1 and 4");
+                    Console.Clear();
                     break;
             }
         }
@@ -153,7 +155,9 @@ namespace ElectronicShop.Models
 
                 if (users == null || users.Users.Count == 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("No users found.");
+                    Console.ResetColor();
                     return users;
                 }
 
@@ -167,7 +171,9 @@ namespace ElectronicShop.Models
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error: {ex.Message}");
+                Console.ResetColor();
                 return null;
             }
         }
@@ -194,7 +200,9 @@ namespace ElectronicShop.Models
                     }
                     else if (!users.Users.Any(user => user.UserID == userIdToDelete))
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("User not found. Enter user id, from the list above: ");
+                        Console.ResetColor();
                     }
                     Console.ResetColor();
                     parseSuccess = int.TryParse(Console.ReadLine(), out userIdToDelete);
@@ -214,7 +222,9 @@ namespace ElectronicShop.Models
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error: {ex.Message}");
+                Console.ResetColor();
             }
         }
     }

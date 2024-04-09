@@ -22,7 +22,16 @@ namespace ElectronicShop.Models
                 Console.WriteLine("Go Shoping");
                 Console.WriteLine("Insert Item Id. to Add to Your Cart \nQ. Go Back");
                 var shopItems = _inventoryDataService.ReadJson() ?? new Inventory();
-                if(shopItems == null) { Console.WriteLine("ERROR: SHOP ITEMS RETURNED AS NULL"); break; }
+                if(shopItems == null) 
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: SHOP ITEMS RETURNED AS NULL");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Press ENTER");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    break; 
+                }
                 foreach (var item in shopItems.Items)
                 {
                     var itemToAdd = itemAddToCart.CartItems.FirstOrDefault(cartItem => cartItem.InCartItemID == item.Id);
@@ -32,8 +41,6 @@ namespace ElectronicShop.Models
                     Console.WriteLine(item.ToString());
                 }
                 string shopSelection = Console.ReadLine().ToLower().ToString();
-                //string pattern = "\\d{3}";//>>>> paterna greiciausia teks trinti
-                //bool isMatch = Regex.IsMatch(shopSelection, pattern);// >>>>patikrinima greiciausia teks trinti
                 if (string.IsNullOrEmpty(shopSelection) || string.IsNullOrWhiteSpace(shopSelection))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -52,10 +59,11 @@ namespace ElectronicShop.Models
                     _userDataService.WriteJson(usersData);
                     break;
                 }
-                else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))//>>> isMatch && greiciausia teks trinti
+                else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))
                 {
                     Item selectedItem = shopItems.Items.First(item => item.Id == Convert.ToInt32(shopSelection));
                     itemAddToCart.AddToUserCart(selectedItem) ;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Item Added to Your Cart");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
