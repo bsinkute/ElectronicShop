@@ -58,7 +58,7 @@ namespace ElectronicShop.Models
                 case 1:
                     var userSettingsWindow = new UserSettingsWindow();
                     userSettingsWindow.LoadUserSettingsWindow(out int userSettingSelection);
-                    var userSettingsSelection = new UserSettingsSelecter(_balanceService);
+                    var userSettingsSelection = new UserSettingsSelector(_balanceService);
                     userSettingsSelection.UserSettingsWindowSelecter(userSettingSelection, user);
                     break;
                 case 2:

@@ -42,7 +42,11 @@ namespace ElectronicShop.Models
                     CurrentUser = user;
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"You loged as {nickName} successfully");
+                    Console.Write($"You loged as ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write($"{nickName}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($" successfully");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
