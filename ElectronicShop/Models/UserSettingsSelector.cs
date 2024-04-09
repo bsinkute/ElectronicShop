@@ -19,7 +19,7 @@ namespace ElectronicShop.Models
                     Console.Clear();
                     Console.Write("Your balance is: ");
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(user.Balance.ToString("N") + " €");
+                    Console.WriteLine(user.Balance.ToString("N") + " €");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
