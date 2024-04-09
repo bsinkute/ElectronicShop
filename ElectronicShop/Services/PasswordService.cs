@@ -1,8 +1,8 @@
-﻿using ElectronicShop.Models.Interfaces;
+﻿using ElectronicShop.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     internal class PasswordService : IPasswordService
     {
@@ -26,15 +26,11 @@ namespace ElectronicShop.Models
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
                 using (MemoryStream memoryStream = new MemoryStream())
+                using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
-                        {
-                            streamWriter.Write(PswText);
-                        }
-                        array = memoryStream.ToArray();
-                    }
+                    streamWriter.Write(PswText);
+                    array = memoryStream.ToArray();
                 }
             }
             return Convert.ToBase64String(array);
@@ -51,14 +47,10 @@ namespace ElectronicShop.Models
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
                 using (MemoryStream memoryStream = new MemoryStream(buffer))
+                using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                using (StreamReader streamReader = new StreamReader(cryptoStream))
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
-                        {
-                            return streamReader.ReadToEnd();
-                        }
-                    }
+                    return streamReader.ReadToEnd();
                 }
             }
         }

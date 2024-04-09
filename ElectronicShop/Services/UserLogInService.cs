@@ -1,5 +1,6 @@
-﻿using ElectronicShop.Models.Interfaces;
-namespace ElectronicShop.Models
+﻿using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
+namespace ElectronicShop.Services
 {
     public class UserLoginService : IUserLoginService
     {
@@ -26,7 +27,7 @@ namespace ElectronicShop.Models
                 IPasswordService encodePsw = new PasswordService(password);
                 var encryptedPassword = encodePsw.EncryptPassword();
                 var user = _userService.GetUser(nickName, encryptedPassword);
-                if (user==null)
+                if (user == null)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Your nickname and password does not match any registered user");

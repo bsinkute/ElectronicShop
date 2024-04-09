@@ -1,4 +1,6 @@
-﻿namespace ElectronicShop.Models.Interfaces
+﻿using ElectronicShop.Models;
+
+namespace ElectronicShop.Interfaces
 {
     public interface IUserLoginService
     {

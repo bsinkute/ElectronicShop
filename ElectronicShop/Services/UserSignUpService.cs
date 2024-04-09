@@ -1,7 +1,8 @@
-﻿using ElectronicShop.Models.Interfaces;
+﻿using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
 using System.Text.RegularExpressions;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     public class UserSignUpService : IUserSignUp
     {
@@ -32,9 +33,9 @@ namespace ElectronicShop.Models
                 var password = Console.ReadLine();
                 if (CheckNickname(nickName) && CheckPassword(password))
                 {
-                    
+
                     IPasswordService encodePsw = new PasswordService(password);
-                    var encPsw= encodePsw.EncryptPassword();
+                    var encPsw = encodePsw.EncryptPassword();
                     _userService.SaveUser(nickName, encPsw);
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -58,7 +59,7 @@ namespace ElectronicShop.Models
                     continue;
                 }
             }
-            
+
         }
         private bool CheckNickname(string nickname)
         {
@@ -67,7 +68,7 @@ namespace ElectronicShop.Models
         }
         private bool CheckPassword(string password)
         {
-            string pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[\w\W]{8,}$"; 
+            string pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[\w\W]{8,}$";
             return Regex.IsMatch(password, pattern);
         }
     }

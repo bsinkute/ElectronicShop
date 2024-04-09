@@ -1,7 +1,8 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
+using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     public class BalanceService : IBalanceService
     {

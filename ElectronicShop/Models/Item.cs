@@ -1,4 +1,4 @@
-﻿namespace ElectronicShop.Models.Shop
+﻿namespace ElectronicShop.Models
 {
     public class Item
     {

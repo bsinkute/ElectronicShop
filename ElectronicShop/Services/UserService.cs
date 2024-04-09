@@ -1,7 +1,8 @@
 ﻿using ElectronicShop.Infrastructure;
-using ElectronicShop.Models.Interfaces;
+using ElectronicShop.Interfaces;
+using ElectronicShop.Models;
 
-namespace ElectronicShop.Models
+namespace ElectronicShop.Services
 {
     public class UserService : IUserService
     {
@@ -14,7 +15,7 @@ namespace ElectronicShop.Models
         public void SaveUser(string username, string password)
         {
             var user = _userDataService.ReadJson() ?? new UsersData();
-            user.AddUser(username,password);
+            user.AddUser(username, password);
             _userDataService.WriteJson(user);
         }
         public User GetUser(string username, string password)
