@@ -6,12 +6,15 @@ namespace ElectronicShop.Models
     {
         private readonly IUserLoginService _userLoginService;
         private readonly IAdmin _adminLogin;
+        private readonly IUserSignUp _userSignUp;
 
-        public LoadShopService(IUserLoginService userLoginService, IAdmin adminLogin)
+        public LoadShopService(IUserLoginService userLoginService, IAdmin adminLogin, IUserSignUp userSignUp)
         {
             _userLoginService = userLoginService;
             _adminLogin = adminLogin;
+            _userSignUp = userSignUp;
         }
+
         public void Load()
         {
             while (true)
@@ -37,8 +40,7 @@ namespace ElectronicShop.Models
             switch (loadSelect)
             {
                 case 1:
-                    IUserSignUp userSignUp = new UserSignUpService();
-                    userSignUp.SignUp();
+                    _userSignUp.SignUp();
                     break;
                 case 2:
                     _userLoginService.Login();

@@ -4,10 +4,12 @@ namespace ElectronicShop.Models
     public class UserLoginService : IUserLoginService
     {
         private readonly IUserWindowService _userWindowService;
+        private readonly IUserService _userService;
 
-        public UserLoginService(IUserWindowService userWindowService)
+        public UserLoginService(IUserWindowService userWindowService, IUserService userService)
         {
             _userWindowService = userWindowService;
+            _userService = userService;
         }
 
         public User CurrentUser { get; private set; }
@@ -23,8 +25,7 @@ namespace ElectronicShop.Models
                 var password = Console.ReadLine();
                 IPasswordService encodePsw = new PasswordService(password);
                 var encryptedPassword = encodePsw.EncryptPassword();
-                IUserService userService = new UserService();
-                var user = userService.GetUser(nickName, encryptedPassword);
+                var user = _userService.GetUser(nickName, encryptedPassword);
                 if (user==null)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

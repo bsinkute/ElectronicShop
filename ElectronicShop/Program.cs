@@ -1,5 +1,6 @@
 using ElectronicShop.Infrastructure;
 using ElectronicShop.Models;
+using ElectronicShop.Models.Interfaces;
 using ElectronicShop.Models.Shop;
 
 namespace ElectronicShop
@@ -12,10 +13,12 @@ namespace ElectronicShop
             var inventoryDataService = new DataService<Inventory> { FileName = "Inventory.json" };
             var balanceService = new BalanceService(usersDataService);
             var userWindowService = new UserWindowService(usersDataService, inventoryDataService, balanceService);
-            var userLoginService = new UserLoginService(userWindowService);
+            var userService = new UserService(usersDataService);
+            var userLoginService = new UserLoginService(userWindowService, userService);
             var adminWindowSelection = new AdminWindowSelection(inventoryDataService, usersDataService);
             var adminLogin = new AdminLogin(adminWindowSelection);
-            var loadShopService = new LoadShopService(userLoginService, adminLogin);
+            var userSignUp = new UserSignUpService(userService);
+            var loadShopService = new LoadShopService(userLoginService, adminLogin, userSignUp);
             
             Console.InputEncoding = System.Text.Encoding.UTF8;
             Console.OutputEncoding = System.Text.Encoding.UTF8;

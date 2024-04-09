@@ -1,6 +1,6 @@
 ﻿namespace ElectronicShop.Models.Interfaces
 {
-    internal interface IUserSignUp
+    public interface IUserSignUp
     {
         void SignUp();
     }

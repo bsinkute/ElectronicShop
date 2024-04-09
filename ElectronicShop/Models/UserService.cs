@@ -3,9 +3,14 @@ using ElectronicShop.Models.Interfaces;
 
 namespace ElectronicShop.Models
 {
-    internal class UserService : IUserService
+    public class UserService : IUserService
     {
-        private IDataService<UsersData> _userDataService = new DataService<UsersData> { FileName = "Users.json" };
+        private readonly IDataService<UsersData> _userDataService;
+        public UserService(IDataService<UsersData> userDataService)
+        {
+            _userDataService = userDataService;
+        }
+
         public void SaveUser(string username, string password)
         {
             var user = _userDataService.ReadJson() ?? new UsersData();
