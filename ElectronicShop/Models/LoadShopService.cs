@@ -10,8 +10,6 @@ namespace ElectronicShop.Models
         {
             _userLoginService = userLoginService;
         }
-
-
         public void Load()
         {
             while (true)
