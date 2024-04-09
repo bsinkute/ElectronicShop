@@ -41,7 +41,8 @@ namespace ElectronicShop.Models
                     _userLoginService.Login();
                     break;
                 case 3:
-                    //Admin login
+                    AdminLogin admin = new AdminLogin();
+                    admin.AdminLogIn();
                     break;
                 default:
                     Console.WriteLine("Error at LoadShopSelector");
