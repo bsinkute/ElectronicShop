@@ -1,5 +1,6 @@
 ﻿using ElectronicShop.Infrastructure;
 using ElectronicShop.Models;
+using System.Text.RegularExpressions;
 namespace ElectronicShop.Services
 {
     public class UserShopService
@@ -16,6 +17,7 @@ namespace ElectronicShop.Services
         public void UserShoping(User user)
         {
             var itemAddToCart = new Cart();
+            int itemID;
             while (true)
             {
                 Console.Clear();
@@ -40,7 +42,7 @@ namespace ElectronicShop.Services
                     item.Quantity -= itemToAdd?.InCartItemQuantity ?? 0;
                     Console.WriteLine(item.ToString());
                 }
-                string shopSelection = Console.ReadLine().ToLower().ToString();
+                string shopSelection = Console.ReadLine().ToLower().ToString();              
                 if (string.IsNullOrEmpty(shopSelection) || string.IsNullOrWhiteSpace(shopSelection))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -59,19 +61,7 @@ namespace ElectronicShop.Services
                     _userDataService.WriteJson(usersData);
                     break;
                 }
-                else if (shopItems.Items.Any(item => item.Id == Convert.ToInt32(shopSelection)))
-                {
-                    Item selectedItem = shopItems.Items.First(item => item.Id == Convert.ToInt32(shopSelection));
-                    itemAddToCart.AddToUserCart(selectedItem);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Item Added to Your Cart");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Press ENTER");
-                    Console.ResetColor();
-                    Console.ReadLine();
-                    continue;
-                }
-                else if (shopItems.Items.Any(item => item.Id != Convert.ToInt32(shopSelection)))
+                else if (!Regex.IsMatch(shopSelection, @"^[0-9]{3,3}$"))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Input does not match the Item Nr.");
@@ -79,8 +69,34 @@ namespace ElectronicShop.Services
                     Console.WriteLine("Press ENTER");
                     Console.ResetColor();
                     Console.ReadLine();
-                    continue;
                 }
+                else
+                {
+                    itemID = Convert.ToInt32(shopSelection);
+                    if (shopItems.Items.Any(item => item.Id == itemID))
+                    {
+                        Item selectedItem = shopItems.Items.First(item => item.Id == itemID);
+                        itemAddToCart.AddToUserCart(selectedItem);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Item Added to Your Cart");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Press ENTER");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        continue;
+                    }
+                    else if (shopItems.Items.Any(item => item.Id != itemID))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Input does not match the Item Nr.");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Press ENTER");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        continue;
+                    }
+                }
+                
             }
         }
     }

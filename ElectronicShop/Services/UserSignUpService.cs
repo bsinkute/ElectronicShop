@@ -1,6 +1,7 @@
 ﻿using ElectronicShop.Interfaces;
 using ElectronicShop.Models;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace ElectronicShop.Services
 {
@@ -63,13 +64,37 @@ namespace ElectronicShop.Services
         }
         private bool CheckNickname(string nickname)
         {
-            string pattern = @"^[a-zA-Z0-9_]{6,12}$";
-            return Regex.IsMatch(nickname, pattern);
+            try
+            {
+                return Regex.IsMatch(nickname, @"^[a-zA-Z0-9_]{6,12}$");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Given arguments are not valid {ex.Message}");
+                return false;
+            }
+            catch (RegexMatchTimeoutException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+                return false;
+            }
         }
         private bool CheckPassword(string password)
         {
-            string pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[\w\W]{8,}$";
-            return Regex.IsMatch(password, pattern);
+            try
+            {
+                return Regex.IsMatch(password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[\w\W]{8,}$");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Given arguments are not valid {ex.Message}");
+                return false;
+            }
+            catch (RegexMatchTimeoutException ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+                return false;
+            }
         }
     }
 }

@@ -26,11 +26,16 @@ namespace ElectronicShop.Services
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
                 using (MemoryStream memoryStream = new MemoryStream())
-                using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-                using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
                 {
-                    streamWriter.Write(PswText);
-                    array = memoryStream.ToArray();
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(PswText);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
                 }
             }
             return Convert.ToBase64String(array);
@@ -47,12 +52,17 @@ namespace ElectronicShop.Services
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
                 using (MemoryStream memoryStream = new MemoryStream(buffer))
-                using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
-                using (StreamReader streamReader = new StreamReader(cryptoStream))
                 {
-                    return streamReader.ReadToEnd();
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
                 }
             }
         }
     }
+    
 }

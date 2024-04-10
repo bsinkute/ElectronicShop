@@ -29,6 +29,7 @@ namespace ElectronicShop.Services
                 var user = _userService.GetUser(nickName, encryptedPassword);
                 if (user == null)
                 {
+                    Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Your nickname and password does not match any registered user");
                     Console.ForegroundColor = ConsoleColor.Blue;
